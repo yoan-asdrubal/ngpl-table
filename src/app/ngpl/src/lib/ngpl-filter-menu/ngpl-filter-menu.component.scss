@@ -1,0 +1,81 @@
+.box-container {
+  display: flex;
+  align-items: center;
+}
+
+div.box {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    div {
+      background: #757575;
+    }
+  }
+
+  div {
+    height: 3px;
+    background: #cccccc;
+    cursor: pointer;
+  }
+
+  div:nth-child(1) {
+    width: 15px;
+  }
+
+  div:nth-child(2) {
+    width: 12px;
+  }
+
+  div:nth-child(3) {
+    width: 9px;
+  }
+}
+
+.filter-content {
+  padding: 25px 25px 25px 25px;
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+
+  .filter-header {
+    color: #2a3f6e;
+    min-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 1rem ;
+  }
+}
+
+.mat-icon {
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.triangle {
+  position: relative;
+  width: 0;
+  border-bottom: solid 11px #757575;
+  border-right: solid 7px transparent;
+  border-left: solid 7px transparent;
+}
+
+.triangle .empty {
+  position: absolute;
+  top: 2px;
+  left: -5px;
+  width: 0;
+  border-bottom: solid 9px white;
+  border-right: solid 5px transparent;
+  border-left: solid 5px transparent;
+}

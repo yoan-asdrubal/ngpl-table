@@ -1,0 +1,32 @@
+<div class="box-container" (click)="openPanelWithBackdrop($event)" cdkOverlayOrigin>
+    <div class="box" *ngIf="useIcon===false">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <mat-icon  matTooltip="Filtrar"  *ngIf="useIcon!==false" (click)="openPanelWithBackdrop($event)" class="mat-18">filter_list</mat-icon>
+    <div>
+        {{column}}
+    </div>
+<!--    <div class="triangle-container">-->
+<!--        <div class="triangle">-->
+<!--            <div class="empty"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+</div>
+
+
+<ng-template #templatePortalContent>
+    <div class="mat-elevation-z8 filter-content"  (keydown.escape)="close()">
+<!--        <div class="filter-header">-->
+<!--            FILTROS-->
+<!--        </div>-->
+        <ng-content>
+
+        </ng-content>
+    </div>
+
+</ng-template>
+
+

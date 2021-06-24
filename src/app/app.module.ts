@@ -24,10 +24,14 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {NgplYearPickerTestComponent} from './app-test/ngpl-year-picker-test/ngpl-year-picker-test.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgplCommonModule} from 'ngpl-common';
 import {NgplTableModule} from './ngpl/src/lib';
+import {NgplDatatableTestComponent} from './app-test/ngpl-table-test/ngpl-datatable-test.component';
+import {NgplSelectModule} from 'ngpl-select';
+import {NgplSelectMultipleModule} from 'ngpl-select-multiple';
+import {MatMenuModule} from '@angular/material/menu';
+import {NgplFieldModule} from 'ngpl-field';
 // import 'ngpl-common/lib/ngpl-interfaces/string.interface';
 // import 'ngpl-common/lib/ngpl-interfaces/object.interface';
 
@@ -50,14 +54,15 @@ const materialModules = [
   MatPaginatorModule,
   MatSortModule,
   MatTooltipModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatMenuModule
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     SideNavComponent,
-    NgplYearPickerTestComponent
+    NgplDatatableTestComponent
   ],
   imports: [
     BrowserModule,
@@ -66,8 +71,11 @@ const materialModules = [
     FormsModule,
     ReactiveFormsModule,
     materialModules,
+    NgplTableModule,
     NgplCommonModule,
-    NgplTableModule
+    NgplSelectModule,
+    NgplSelectMultipleModule,
+    NgplFieldModule
   ],
   providers: [{
     provide: LOCALE_ID, useValue: 'es-cl'

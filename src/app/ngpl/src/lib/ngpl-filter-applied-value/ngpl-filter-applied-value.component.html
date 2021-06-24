@@ -1,0 +1,6 @@
+<div class="filter-applied">
+    <span class="field" (click)="openFilterMenuOption()">{{field| titlecase}}:</span><span
+        (click)="openFilterMenuOption()">{{value}}</span>
+    <span class="close" *ngIf="!currentConfig?.fixedFilter && !customField" (click)="clearFilter()">&#10006;</span>
+    <span class="close" *ngIf="!!currentConfig?.fixedFilter || !!customField"> </span>
+</div>

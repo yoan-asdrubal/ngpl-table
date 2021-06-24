@@ -8,10 +8,19 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {NgplCommonDirectivesModule, NgplCommonModule} from 'ngpl-common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {NgplYearPickerComponent} from './ngpl-year-picker/ngpl-year-picker.component';
+import {NgplColumnSelectorComponent} from './ngpl-column-selector/ngpl-column-selector.component';
+import {NgplDatatableComponent} from './ngpl-datatable/ngpl-datatable.component';
+import {NgplFiltersAppliedComponent} from './ngpl-filters-applied/ngpl-filters-applied.component';
+import {NgplFilterMenuComponent} from './ngpl-filter-menu/ngpl-filter-menu.component';
+import {NgplFilterAppliedValueComponent} from './ngpl-filter-applied-value/ngpl-filter-applied-value.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const components = [
-  NgplYearPickerComponent
+  NgplDatatableComponent,
+  NgplFiltersAppliedComponent,
+  NgplFilterMenuComponent,
+  NgplFilterAppliedValueComponent,
+  NgplColumnSelectorComponent
 ];
 
 @NgModule({
@@ -25,6 +34,7 @@ const components = [
     MatIconModule,
     MatDatepickerModule,
     MatTooltipModule,
+    MatSlideToggleModule,
     OverlayModule,
     NgplCommonModule,
     NgplCommonDirectivesModule

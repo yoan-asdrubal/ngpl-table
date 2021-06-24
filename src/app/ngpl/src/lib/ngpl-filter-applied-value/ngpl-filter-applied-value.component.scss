@@ -1,0 +1,31 @@
+@import "../../styles/variables";
+
+.filter-applied {
+  font-size: 14px;
+  font-weight: 200;
+  letter-spacing: 0.6px;
+  color: $c-white;
+  align-self: flex-start;
+  background: $c-orange;
+  padding: 0;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  margin: 5px 10px 5px 5px;
+  min-height: 30px;
+
+  span {
+    padding-left: 10px;
+
+    &.close {
+      font-size: 16px;
+      padding-right: 10px;
+    }
+
+    &.field {
+      padding-left: 15px;
+    }
+
+    cursor: pointer;
+  }
+}
