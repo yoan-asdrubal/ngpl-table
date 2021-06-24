@@ -19,7 +19,7 @@
           <span class="flex-100"></span>
           <ngpl-filter-menu #filterOptionComponent useIcon="true">
 
-            <ngpl-field appWidth="250px"
+            <ngpl-field ngplWidth="250px"
                         placeHolder="Buscar por Rut o Nombre y Apellidos"
                         appearance="default"
                         customClass="shrink bb-1 "
@@ -32,7 +32,7 @@
             >
             </ngpl-field>
 
-            <ngpl-field appWidth="250px"
+            <ngpl-field ngplWidth="250px"
                         placeHolder="Buscar por Movimiento"
                         appearance="default"
                         class="mt-45"
@@ -51,7 +51,7 @@
               appearance="default"
               class="mt-45"
               customClass="shrink bb-1"
-              appWidth="250px"
+              ngplWidth="250px"
               [items]="centroNegocio || []"
               [filterBy]="['descripcion']"
               propValue="id"
@@ -74,7 +74,7 @@
               propValue="id"
               class="mt-45"
               customClass="shrink  bb-1"
-              appWidth="250px"
+              ngplWidth="250px"
               propLabel="descripcion"
               placeHolder="Estado"
               floatLabel="never"

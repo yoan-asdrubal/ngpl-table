@@ -12,6 +12,7 @@
     "build:lib:minor": " cd projects/ngpl && npm version minor && cd../.. && ng build ngpl --prod && npm run publish",
     "build:lib:major": " cd projects/ngpl && npm version major && cd../.. && ng build ngpl --prod && npm run publish",
     "publish": "cd dist/ngpl && npm publish",
+    "ngpl:update": "npm update ngpl-common ngpl-select ngpl-field ngpl-select-multiple",
     "test:lib": "jest",
     "test:lib:coverage": "jest --coverage"
   },
@@ -34,7 +35,7 @@
     "ngpl-common": "^2.0.20",
     "ngpl-field": "^1.0.7",
     "ngpl-select": "^1.0.5",
-    "ngpl-select-multiple": "^1.0.8",
+    "ngpl-select-multiple": "^1.0.15",
     "ngx-reactivetoolkit": "^8.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

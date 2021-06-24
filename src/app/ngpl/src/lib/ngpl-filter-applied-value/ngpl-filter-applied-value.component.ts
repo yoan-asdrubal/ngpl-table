@@ -52,7 +52,7 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
       .pipe(
         untilDestroyed(this),
         tap(f => {
-          this.value = f;
+          this.value = f.toString().trim();
         })
       )
       .subscribe();
@@ -82,13 +82,13 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
       if (f.subtype === 'date') {
         this.value = this.datePipe.transform(f.value, 'dd/MM/yyyy');
       } else {
-        this.value = f.value;
+        this.value = f.value.toString().trim();
       }
     } else {
       if (!!config.filteredValue) {
-        this.value = config.filteredValue(f.value);
+        this.value = config.filteredValue(f.value).toString().trim();
       } else {
-        this.value = f.value;
+        this.value = f.value.toString().trim();
       }
     }
   }
