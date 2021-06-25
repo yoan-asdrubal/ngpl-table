@@ -55,7 +55,7 @@ export class NgplFiltersAppliedComponent implements OnInit, NgplFilterAppliedBas
       ),
       tap(() => {
         this.filteredApplied = Object.values(this.filterConfig)
-          .filter(f => !!f.value || typeof f.value === 'boolean');
+          .filter(f => !!f.value || typeof f.value === 'boolean' || typeof f.value === 'number');
         this.emitFilterConfig();
       })
     )

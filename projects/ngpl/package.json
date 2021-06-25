@@ -1,10 +1,7 @@
 {
   "name": "ngpl-datatable",
-  "version": "1.0.2",
-  "peerDependencies": {
-
-  },
-
+  "version": "1.0.4",
+  "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.0.0",
     "ngpl-common": "^2.0.15"
