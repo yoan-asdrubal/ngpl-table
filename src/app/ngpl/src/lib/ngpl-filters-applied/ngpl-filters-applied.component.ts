@@ -1,8 +1,8 @@
 import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {filter, take, takeUntil, tap} from 'rxjs/operators';
-import {NGPL_FILTER_APPLIED_BASE, NgplFilterAppliedBase, NgplFilterConfigDirective, NgplFilterConfigValue} from 'ngpl-common';
-import {NgplColumnConfig} from '../base/ngpl-column-config.model';
+import {NGPL_FILTER_APPLIED_BASE, NgplFilterAppliedBase, NgplFilterConfigDirective, NgplFilterConfigValue} from 'ngpl-filter';
+import {NgplColumnConfig} from '../ngpl-table-base/ngpl-column-config.model';
 
 @UntilDestroy()
 @Component({

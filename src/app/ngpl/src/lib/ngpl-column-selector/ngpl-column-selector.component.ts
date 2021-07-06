@@ -17,7 +17,7 @@ import {Observable, Subscription} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {filter, map, tap} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
-import {NgplColumnConfig, NgplTableColumnConfig} from '../base/ngpl-column-config.model';
+import {NgplColumnConfig, NgplTableColumnConfig} from '../ngpl-table-base/ngpl-column-config.model';
 
 @UntilDestroy()
 @Component({

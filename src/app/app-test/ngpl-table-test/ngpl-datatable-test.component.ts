@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ItemsToMap} from 'ngpl-common';
 import {FormControl} from '@angular/forms';
-import {NgplTableColumnConfig} from '../../ngpl/src/lib/base/ngpl-column-config.model';
-import {NgplBaseTable} from '../../ngpl/src/lib/base/ngpl-base.table';
+import {NgplTableColumnConfig} from '../../ngpl/src/lib/ngpl-table-base/ngpl-column-config.model';
+import {NgplBaseTable} from '../../ngpl/src/lib/ngpl-table-base/ngpl-base.table';
+import {BaseTableDec} from '../../ngpl/src/lib';
 
+@BaseTableDec()
 @Component({
   selector: 'ngpl-table-test',
   templateUrl: './ngpl-datatable-test.component.html',
@@ -44,7 +46,6 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
 
   constructor() {
     super();
-    this.generarColumnConfigMap();
   }
 
   ngOnInit(): void {
@@ -74,7 +75,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
   }
 
   initData(): void {
-    this.items = Array(55).fill(1).map((i, index) => {
+    this.items = Array(55555).fill(1).map((i, index) => {
 
       return {
         id: i,

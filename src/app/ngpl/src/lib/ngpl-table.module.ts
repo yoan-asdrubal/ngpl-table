@@ -14,6 +14,7 @@ import {NgplFiltersAppliedComponent} from './ngpl-filters-applied/ngpl-filters-a
 import {NgplFilterMenuComponent} from './ngpl-filter-menu/ngpl-filter-menu.component';
 import {NgplFilterAppliedValueComponent} from './ngpl-filter-applied-value/ngpl-filter-applied-value.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {NgplFilterModule} from 'ngpl-filter';
 
 const components = [
   NgplDatatableComponent,
@@ -37,6 +38,7 @@ const components = [
     MatSlideToggleModule,
     OverlayModule,
     NgplCommonModule,
+    NgplFilterModule,
     NgplCommonDirectivesModule
   ]
 })

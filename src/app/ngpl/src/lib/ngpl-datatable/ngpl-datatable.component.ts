@@ -27,7 +27,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {NgplFilterConfigDirective, NgplFilterConfigValue, NgplFilterService} from 'ngpl-common';
+import {NgplFilterConfigDirective, NgplFilterConfigValue, NgplFilterService} from 'ngpl-filter';
 
 @UntilDestroy()
 @Component({

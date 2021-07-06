@@ -32,6 +32,7 @@ import {NgplSelectModule} from 'ngpl-select';
 import {NgplSelectMultipleModule} from 'ngpl-select-multiple';
 import {MatMenuModule} from '@angular/material/menu';
 import {NgplFieldModule} from 'ngpl-field';
+import {NgplFilterModule} from 'ngpl-filter';
 // import 'ngpl-common/lib/ngpl-interfaces/string.interface';
 // import 'ngpl-common/lib/ngpl-interfaces/object.interface';
 
@@ -73,6 +74,7 @@ const materialModules = [
     materialModules,
     NgplTableModule,
     NgplCommonModule,
+    NgplFilterModule,
     NgplSelectModule,
     NgplSelectMultipleModule,
     NgplFieldModule
