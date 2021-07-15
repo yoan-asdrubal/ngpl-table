@@ -34,7 +34,7 @@
     "moment": "^2.29.1",
     "ngpl-common": "^2.0.26",
     "ngpl-field": "^1.1.0",
-    "ngpl-filter": "^1.0.6",
+    "ngpl-filter": "^1.0.7",
     "ngpl-select": "^1.1.3",
     "ngpl-select-multiple": "^1.1.4",
     "ngx-reactivetoolkit": "^8.0.2",

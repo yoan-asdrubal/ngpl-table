@@ -56,15 +56,22 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       }, {
         id: 2,
         descripcion: 'CNegocio 2'
+      }, {
+        id: 3,
+        descripcion: 'CNegocio 2'
       }
     ];
     this.opcionesEstado = [
       {
-        id: 'OK',
-        descripcion: 'OK'
+        id: 'PROCESADO',
+        descripcion: 'PROCESADO'
       },
       {
         id: 'PENDIENTE',
+        descripcion: 'PENDIENTE'
+      },
+      {
+        id: 'CANCELADO',
         descripcion: 'PENDIENTE'
       }
     ];
@@ -80,7 +87,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       return {
         id: i,
         rut: String.getRandomWord(10),
-        cnegocio: this.centroNegocio[index % 2].id,
+        cnegocio: this.centroNegocio[index % 3].id,
         movimiento: String.getRandomWord(10),
         valor: String.getRandomWord(10),
         estado: this.opcionesEstado[index % 2].id,
