@@ -157,13 +157,13 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     });
   }
 
-  eliminar(item): void {
-    this.deselect([item.id]);
-    this.items = this.items.filter(i => i.id !== item.id);
+  eliminar(items = this.selectedValues()): void {
+    this.deselect(items);
+    this.items = this.items.filter(i => {
+      return !items.some( ii => i.id === ii.id);
+    });
   }
 
-  eliminarAll(): void {
-    this.items = [];
-  }
+
 
 }
