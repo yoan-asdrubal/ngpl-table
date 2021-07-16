@@ -92,14 +92,14 @@
                                 (viewColumn)="displayColumns = $event">
 
           </ngpl-column-selector>
-          <button mat-mini-fab class="ml-3" color="" (click)="eliminarAll()">
+          <button mat-mini-fab matTooltip="Eliminar" class="ml-3" color="" (click)="eliminar()">
             <mat-icon class="mat-18">delete</mat-icon>
           </button>
-          <button mat-mini-fab class="ml-3" color="" (click)="initData()">
+          <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" color="" (click)="initData()">
             <mat-icon class="mat-18">refresh</mat-icon>
           </button>
-          <button mat-mini-fab class="ml-3 mr-3" color="" (click)="generateAndDownloadExcel()">
-            <mat-icon class="mat-18">add</mat-icon>
+          <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color="" (click)="generateAndDownloadExcel()">
+            <mat-icon class="mat-18">file_download</mat-icon>
           </button>
         </div>
         <table #table mat-table matSort>
