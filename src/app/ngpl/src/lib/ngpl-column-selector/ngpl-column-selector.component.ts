@@ -17,7 +17,7 @@ import {Observable, Subscription} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {filter, map, tap} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
-import {NgplColumnConfig, NgplTableColumnConfig} from '../base/ngpl-column-config.model';
+import {NgplTableConfigModel} from '../ngpl-table-base/ngpl-table-config.model';
 
 @UntilDestroy()
 @Component({
@@ -30,8 +30,8 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
   private overlayRef: OverlayRef;
   @ViewChild('templatePortalContent', {static: true}) templatePortalContent: TemplateRef<any>;
 
-  @Input() columnConfig: NgplTableColumnConfig;
-  @Changes('columnConfig') columnConfig$: Observable<NgplTableColumnConfig>;
+  @Input() columnConfig: NgplTableConfigModel;
+  @Changes('columnConfig') columnConfig$: Observable<NgplTableConfigModel>;
   @Output() viewColumn: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   form: FormGroup = new FormGroup({});
@@ -73,11 +73,9 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
     this.columnConfig$
       .pipe(
         untilDestroyed(this),
-        tap((val: NgplTableColumnConfig) => {
-          console.log('val', val);
+        tap((val: NgplTableConfigModel) => {
           this.form = new FormGroup({});
           val.columns.forEach(v => {
-            console.log('v', v);
             if (!v.hideColumn) {
               this.form.addControl(v.getOrDefault('column', v), new FormControl());
 
@@ -86,7 +84,6 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
               }
             }
           });
-          console.log('this.form.value', this.form.value);
           val.selected.forEach(v => this.form.get(v).setValue(true));
           this.columnConfig = val;
           this.initFormChangesSubscription();

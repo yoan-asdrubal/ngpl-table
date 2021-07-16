@@ -5,9 +5,9 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {tap} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
 import {NgplFilterMenuComponent} from '../ngpl-filter-menu/ngpl-filter-menu.component';
-import {NGPL_FILTER_APPLIED_BASE, NgplFilterConfigValue} from 'ngpl-common';
-import {NgplColumnConfig} from '../base/ngpl-column-config.model';
+import {NgplColumnConfig} from '../ngpl-table-base/ngpl-table-config.model';
 import {NgplFiltersAppliedComponent} from '../ngpl-filters-applied/ngpl-filters-applied.component';
+import {NGPL_FILTER_APPLIED_BASE, NgplFilterConfigValue} from 'ngpl-filter';
 
 @UntilDestroy()
 @Component({

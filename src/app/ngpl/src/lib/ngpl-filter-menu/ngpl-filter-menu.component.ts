@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {Overlay, OverlayPositionBuilder, OverlayRef} from '@angular/cdk/overlay';
 import {TemplatePortal} from '@angular/cdk/portal';
-import {NGPL_FILTER_MENU_BASE, NgplAutofocusDirective, NgplFilterMenuBase} from 'ngpl-common';
+import {NGPL_FILTER_MENU_BASE, NgplAutofocusDirective, NgplFilterMenuBase} from 'ngpl-filter';
 
 @Component({
   selector: 'ngpl-filter-menu',
