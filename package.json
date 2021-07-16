@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4200 --base-href /",
-    "build": "ng build --prod --base-href /ngpl-time-picker/",
+    "build": "ng build --prod --base-href /ngpl-table/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -31,6 +31,7 @@
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@ngneat/until-destroy": "^8.0.3",
+    "exceljs": "^4.2.1",
     "moment": "^2.29.1",
     "ngpl-common": "^2.0.26",
     "ngpl-field": "^1.1.0",

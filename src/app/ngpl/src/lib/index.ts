@@ -1,7 +1,9 @@
+import './ngpl-interfaces/string.interface';
+import './ngpl-interfaces/object.interface';
 
 export * from './ngpl-table-decorators/base-table-dec';
 export * from './ngpl-table-base/ngpl-base.table';
-export * from './ngpl-table-base/ngpl-column-config.model';
+export * from './ngpl-table-base/ngpl-table-config.model';
 
 export * from './ngpl-column-selector/ngpl-column-selector.component';
 export * from './ngpl-datatable/ngpl-datatable.component';

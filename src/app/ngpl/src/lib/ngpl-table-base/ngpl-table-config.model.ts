@@ -1,7 +1,15 @@
-export interface NgplTableColumnConfig {
+import {DataValidation, Style} from 'exceljs';
+
+export interface NgplTableConfigModel {
   title?: string;
   columns?: NgplColumnConfig[] | string[] | any[];
   selected?: string[];
+  excelConfig?: {
+    styles?: {
+      columns: StylesConfig[],
+      rows: StylesConfig[]
+    };
+  };
 }
 
 export interface NgplColumnConfig {
@@ -34,23 +42,20 @@ export interface NgplColumnConfig {
    */
   excelSkipExport?: boolean;
 
-  /** Ancho de la columna al ser exportada en el excel */
-  excelColumnWidth?: number;
-
-  /** Titulo de la columna en el excel, en caso de no especificarse se utilizara @{titulo} y si esta no se especifica
-   * se utilizara @{columna}
-   */
-  excelTitulo?: string;
-
-  /** Especifica el valor a generar en el excel, puede ser un string especificando la propiedad qeu se desea mostrar o puede ser
-   * una funcion que dado un item de la lista transforme ese valor en el formato deseado
-   * @example propiedad simple 'rut'
-   * @example propiedad anidad en el objetjo 'cnegocio.descripcion'
-   * @example funcion (item: any) => item.id.toString().toUpperCase()
-   * @example utilizando funcion definida en el componente (item: any) => this.myCustomTransformFunction
-   */
-  excelValue?: (item) => any | string;
+  excelConfig: NgplExcelConfig;
 
   hideColumn?: boolean;
 }
 
+export interface NgplExcelConfig {
+  width?: number;
+  header?: string;
+  value?: any | ((item) => any | string);
+  style?: Partial<Style>;
+  dataValidation?: DataValidation;
+}
+
+export interface StylesConfig {
+  style: Partial<Style>;
+  index: string[] | number[] | any;
+}
