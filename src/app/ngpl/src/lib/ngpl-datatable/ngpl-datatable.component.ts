@@ -36,7 +36,7 @@ import {NgplFilterConfigDirective, NgplFilterConfigValue, NgplFilterService} fro
   styleUrls: ['./ngpl-datatable.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  exportAs: 'dfFilteredDatatable'
+  exportAs: 'ngplDatatable'
 })
 export class NgplDatatableComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit {
   @Input() items: any[];
@@ -258,6 +258,10 @@ export class NgplDatatableComponent implements OnInit, OnChanges, OnDestroy, Aft
   defaultSortingDataAccesor(item: any, property: any): any {
     if (!item) {
       return '';
+    }
+    const value = item[property];
+    if (!isNaN(value)) {
+      return +value;
     }
     return item[property];
   }

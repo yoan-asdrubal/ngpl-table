@@ -1,0 +1,106 @@
+<ngpl-datatable #ngplDatatable
+                [items]="items"
+                (itemFilteredChange)="itemsFiltered = $event; itemFilteredEvent.emit($event)"
+                [searching]="searching">
+  <div class="table-container" #mov_table>
+    <div class="table-options end">
+      <ngpl-filters-applied #filteredValues ngplWidth="100%" class="ml-3"
+                            [columns]="displayColumns"
+                            [columnConfig]="columnConfigMap">
+
+      </ngpl-filters-applied>
+      <span class="flex-100"></span>
+      <ngpl-filter-menu #filterMenu useIcon="true">
+
+      </ngpl-filter-menu>
+      <ngpl-column-selector [columnConfig]="tableConfig" class="ml-3 "
+                            (viewColumn)="displayColumns = $event">
+      </ngpl-column-selector>
+
+    </div>
+    <table #table mat-table matSort>
+      <ng-template ngFor [ngForOf]="tableConfig?.columns" let-config>
+        <ng-container [matColumnDef]="config?.column"
+                      *ngIf="config.column !=='select' && config.column!=='action'">
+          <th class="px-2" mat-header-cell *matHeaderCellDef [disabled]="!config?.columnConfig?.sortColumn"
+              mat-sort-header>
+            {{config?.columnConfig?.title || config?.title}}
+          </th>
+          <td class="px-2" mat-cell *matCellDef="let element">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              <ng-template [ngIf]="!!config?.columnConfig?.value && !!element">
+                {{config.columnConfig?.value(element)}}
+              </ng-template>
+              <ng-template [ngIf]="!config?.columnConfig?.value && !!element">
+                {{element[config?.column]}}
+              </ng-template>
+            </ngpl-skeleton>
+          </td>
+
+        </ng-container>
+      </ng-template>
+
+      <ng-container matColumnDef="select">
+        <th scope="col" mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [disabled]="items?.length===0"
+                        (change)="$event ? masterToggle(itemsFiltered) : null"
+                        [checked]="isAllSelected(itemsFiltered)"
+                        [indeterminate]="hasValue() && !isAllSelected(itemsFiltered)">
+          </mat-checkbox>
+        </th>
+        <td [attr.data-label]="'Seleccionar'" mat-cell *matCellDef="let row">
+          <ngpl-skeleton [isLoading]="searching" width="25px" height="25px" shape="circle">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? toggle(row) : null"
+                          [checked]="isSelected(row)">
+            </mat-checkbox>
+          </ngpl-skeleton>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th class="text-center pl-2 pr-3" mat-header-cell *matHeaderCellDef>Opciones</th>
+        <td class="text-center pl-2 pr-3" mat-cell *matCellDef="let item">
+          <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle"
+                         *ngIf="item?.tipo !=='PRESTAMO'">
+            <mat-icon class="mat-18 more" [matMenuTriggerFor]="menuRef">more_vert
+            </mat-icon>
+          </ngpl-skeleton>
+
+          <mat-menu #menuRef="matMenu" xPosition="before">
+            <button mat-menu-item matTooltip="Eliminar">
+              <mat-icon class="mat-18">delete</mat-icon>
+              <span>Eliminar</span>
+            </button>
+
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+    </table>
+    <div *ngIf="table.dataSource?.data?.length === 0 && !searching" class="no-result-actions">
+      <ng-template [ngIf]="!!ngplDatatable.hasFilterApplied">
+        <p class="mt-3">
+          No se encontraron coincidencias en la búsqueda
+        </p>
+        <button class="btn mr-3 mt-3 mb-3" mat-button (click)="ngplDatatable.clearFilter()">
+          Limpiar filtros
+        </button>
+      </ng-template>
+
+      <ng-template [ngIf]="!ngplDatatable.hasFilterApplied">
+        <p class="mt-3">
+          No hay datos registrados
+        </p>
+        <!--            <button mat-mini-fab class="ml-3 mr-3 mb-3" color="" (click)="initData()">-->
+        <!--              <mat-icon class="mat-18">refresh</mat-icon>-->
+        <!--            </button>-->
+      </ng-template>
+
+
+    </div>
+    <mat-paginator></mat-paginator>
+  </div>
+</ngpl-datatable>

@@ -1,7 +1,7 @@
 /**
  *  Definir metodos bases para interactuar con la tabla, el filtro y la seleccion de columnas
  */
-import {NgplColumnConfig, NgplTableConfigModel} from './ngpl-table-config.model';
+import {NgplTableColumnConfig, NgplTableConfigModel} from './ngpl-table-config.model';
 import {NgplSelection} from 'ngpl-common';
 import * as ExcelProper from 'exceljs';
 import {Cell, Worksheet} from 'exceljs';
@@ -23,7 +23,7 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
    */
   tableConfig: NgplTableConfigModel = {};
 
-  columnConfigMap: { [key: string]: NgplColumnConfig } = {};
+  columnConfigMap: { [key: string]: NgplTableColumnConfig } = {};
 
   constructor(key: string = 'id') {
     super(key);
@@ -181,19 +181,14 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
     });
   }
 
-  generarExcelColumnHeader(columns: NgplColumnConfig[]): Array<any> {
+  generarExcelColumnHeader(columns: NgplTableColumnConfig[]): Array<any> {
     return columns.map(c => ({
       key: c.column, width: c.getOrDefault('excelConfig.width', 20), header: c.getOrDefault('excelConfig.header', c.title || c.column)
     })) as Array<any>;
 
   }
 
-  generateExcelData(items: T[], columns: NgplColumnConfig[]): any[] {
-    // columns.forEach(c => {
-    //   const excelValue = c.getOrDefault('excelConfig.value', c.column || c);
-    //   const tipo = typeof excelValue;
-    //   console.log('log', c, excelValue, tipo);
-    // });
+  generateExcelData(items: T[], columns: NgplTableColumnConfig[]): any[] {
 
     return items.map((item: any) => (
       columns.map(c => {

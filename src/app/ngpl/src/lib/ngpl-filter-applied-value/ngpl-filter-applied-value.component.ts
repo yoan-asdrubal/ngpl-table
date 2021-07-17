@@ -5,7 +5,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {tap} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
 import {NgplFilterMenuComponent} from '../ngpl-filter-menu/ngpl-filter-menu.component';
-import {NgplColumnConfig} from '../ngpl-table-base/ngpl-table-config.model';
+import {NgplTableColumnConfig} from '../ngpl-table-base/ngpl-table-config.model';
 import {NgplFiltersAppliedComponent} from '../ngpl-filters-applied/ngpl-filters-applied.component';
 import {NGPL_FILTER_APPLIED_BASE, NgplFilterConfigValue} from 'ngpl-filter';
 
@@ -32,13 +32,13 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
   value = null;
   datePipe = new DatePipe('en');
 
-  @Input() columnConfig: { [key: string]: NgplColumnConfig } = {};
+  @Input() columnConfig: { [key: string]: NgplTableColumnConfig } = {};
 
   constructor( @Optional() @Inject(NGPL_FILTER_APPLIED_BASE) private ngplFilterBase: NgplFiltersAppliedComponent) {
   }
 
   ngOnInit(): void {
-    console.log('this.ngplFilterBase', this.ngplFilterBase);
+    // console.log('this.ngplFilterBase', this.ngplFilterBase);
     this.filteredApplied$
       .pipe(
         untilDestroyed(this),
@@ -76,8 +76,8 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
   }
 
   generarValue(f: NgplFilterConfigValue): void {
-    const config: NgplColumnConfig = this.currentConfig;
-    console.log('config', this.columnConfig, config, f);
+    const config: NgplTableColumnConfig = this.currentConfig;
+    // console.log('config', this.columnConfig, config, f);
     if (!config) {
       if (f.subtype === 'date') {
         this.value = this.datePipe.transform(f.value, 'dd/MM/yyyy');
@@ -85,15 +85,15 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
         this.value = f.value.toString().trim();
       }
     } else {
-      if (!!config.filteredValue) {
-        this.value = config.filteredValue(f.value).toString().trim();
+      if (!!config.getOrDefault('filterConfig.filteredValue', null)) {
+        this.value = config.filterConfig.value(f.value).toString().trim();
       } else {
         this.value = f.value.toString().trim();
       }
     }
   }
 
-  get currentConfig(): NgplColumnConfig {
+  get currentConfig(): NgplTableColumnConfig {
     const filterColumn = this.filterApplied?.column || this.filterApplied?.name;
     return this.columnConfig[filterColumn];
   }

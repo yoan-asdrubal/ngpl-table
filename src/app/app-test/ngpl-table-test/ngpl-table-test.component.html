@@ -1,0 +1,20 @@
+<div>
+  <ngpl-table
+    [searching]="searching"
+    [items]="items"
+    [tableConfig]="tableConfig"
+
+    (itemFilteredEvent)="itemsFiltered = $event"
+    (itemSelectedEvent)="itemsSelected = $event"
+  >
+
+  </ngpl-table>
+</div>
+<div fxLayout>
+  <div>
+    <pre>{{itemsFiltered | json}}</pre>
+  </div>
+  <div>
+    <pre>{{itemsSelected | json}}</pre>
+  </div>
+</div>

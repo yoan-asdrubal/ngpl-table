@@ -98,7 +98,8 @@
           <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" color="" (click)="initData()">
             <mat-icon class="mat-18">refresh</mat-icon>
           </button>
-          <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color="" (click)="generateAndDownloadExcel()">
+          <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color=""
+                  (click)="generateAndDownloadExcel()">
             <mat-icon class="mat-18">file_download</mat-icon>
           </button>
         </div>
@@ -200,7 +201,7 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="accion">
+          <ng-container matColumnDef="action">
             <th class="text-center pl-2 pr-3" mat-header-cell *matHeaderCellDef>Opciones</th>
             <td class="text-center pl-2 pr-3" mat-cell *matCellDef="let item">
               <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle"

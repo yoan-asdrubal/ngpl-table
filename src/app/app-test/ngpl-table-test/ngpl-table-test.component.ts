@@ -2,16 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ItemsToMap} from 'ngpl-common';
 import {FormControl} from '@angular/forms';
 import {NgplTableConfigModel} from '../../ngpl/src/lib/ngpl-table-base/ngpl-table-config.model';
-import {NgplBaseTable} from '../../ngpl/src/lib/ngpl-table-base/ngpl-base.table';
-import {BaseTableDec} from '../../ngpl/src/lib';
 
-@BaseTableDec()
 @Component({
   selector: 'ngpl-table-test',
-  templateUrl: './ngpl-datatable-test.component.html',
-  styleUrls: ['./ngpl-datatable-test.component.scss']
+  templateUrl: './ngpl-table-test.component.html',
+  styleUrls: ['./ngpl-table-test.component.scss']
 })
-export class NgplDatatableTestComponent extends NgplBaseTable<any> implements OnInit {
+export class NgplTableTestComponent   implements OnInit {
   searchRutCtrl = new FormControl();
 
   tableConfig: NgplTableConfigModel = {
@@ -19,21 +16,36 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     columns: [
       {column: 'select', title: 'Seleccionar', fixed: true, excelSkipExport: true},
       {
-        column: 'rut', title: 'Rut', fixed: true
+        column: 'rut', title: 'Rut', fixed: true,
+        columnConfig: {
+          sortColumn: true
+        }
       },
       {
-        column: 'nombre', title: 'Nombre', excelConfig: {
+        column: 'nombre', title: 'Nombre',
+        columnConfig: {
+          sortColumn: true
+        },
+        excelConfig: {
           width: 60
         }
       },
       {
-        column: 'valor', title: 'Valor'
+        column: 'valor', title: 'Valor',
+        columnConfig: {
+          sortColumn: true
+        }
       },
       {
         column: 'cnegocio',
         title: 'Área',
-        filteredValue: (value: any[]) => {
-          return value.map(v => this.centroNegocioMap[v]?.descripcion || v).join(',');
+        filterConfig: {
+          filteredValue: (value: any[]) => {
+            return value.map(v => this.centroNegocioMap[v]?.descripcion || v).join(',');
+          }
+        },
+        columnConfig: {
+          value: (item) => this.centroNegocioMap[item.cnegocio]?.descripcion
         },
         excelConfig: {
           value: (item) => this.centroNegocioMap[item.cnegocio]?.descripcion
@@ -45,9 +57,9 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       {
         column: 'movimiento', title: 'Movimiento'
       },
-      {column: 'accion', title: 'Opciones', fixed: true, excelSkipExport: true}
+      {column: 'action', title: 'Opciones', fixed: true, excelSkipExport: true}
     ],
-    selected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'accion'], excelConfig: {
+    selected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'action'], excelConfig: {
       styles: {
         columns: [
           {
@@ -105,8 +117,12 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
   estadoFilter = new FormControl();
   searchMovimientoCtrl = new FormControl();
 
+  items  = [];
+  searching = true;
+  itemsFiltered = [];
+  itemsSelected = [];
+
   constructor() {
-    super();
   }
 
   ngOnInit(): void {
@@ -150,20 +166,12 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
         rut: String.getRandomWord(10),
         cnegocio: this.centroNegocio[index % 3].id,
         movimiento: String.getRandomWord(10),
-        valor: String.getRandomWord(10),
+        valor: Math.random() * 1000 + (index % 2 === 0 ? '111' : ''),
         estado: this.opcionesEstado[index % 2].id,
         nombre: String.getRandomSentence(3)
       };
     });
   }
-
-  eliminar(items = this.selectedValues()): void {
-    this.deselect(items);
-    this.items = this.items.filter(i => {
-      return !items.some( ii => i.id === ii.id);
-    });
-  }
-
 
 
 }
