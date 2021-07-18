@@ -49,6 +49,13 @@ export interface NgplColumnConfig {
 
   sortColumn?: boolean;
 
+  valueIcon?: {
+    icon: (item: any) => string;
+    class: (item: any) => string;
+    tooltip: (item: any) => string;
+    action: (item: any) => any;
+  };
+
 }
 
 export interface NgplColumnFilterConfig {

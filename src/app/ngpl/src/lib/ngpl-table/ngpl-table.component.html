@@ -28,10 +28,18 @@
           </th>
           <td class="px-2" mat-cell *matCellDef="let element">
             <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-              <ng-template [ngIf]="!!config?.columnConfig?.value && !!element">
-                {{config.columnConfig?.value(element)}}
+              <ng-template [ngIf]="!!config?.columnConfig?.valueIcon && !!element">
+                <mat-icon
+                  (click)="config?.columnConfig?.valueIcon?.action(element) || null"
+                  [matTooltip]="config?.columnConfig?.valueIcon?.tooltip(element)"
+                  class="mat-18 {{config?.columnConfig?.valueIcon?.class(element)}}">
+                  {{config?.columnConfig?.valueIcon?.icon(element)}}
+                </mat-icon>
               </ng-template>
-              <ng-template [ngIf]="!config?.columnConfig?.value && !!element">
+              <ng-template [ngIf]="!!config?.columnConfig?.value  && !!element">
+                <div [innerHTML]="config?.columnConfig?.value(element)"></div>
+              </ng-template>
+              <ng-template [ngIf]="!config?.columnConfig?.value && !config?.columnConfig?.valueIcon && !!element">
                 {{element[config?.column]}}
               </ng-template>
             </ngpl-skeleton>

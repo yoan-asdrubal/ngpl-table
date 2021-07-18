@@ -8,7 +8,7 @@ import {NgplTableConfigModel} from '../../ngpl/src/lib/ngpl-table-base/ngpl-tabl
   templateUrl: './ngpl-table-test.component.html',
   styleUrls: ['./ngpl-table-test.component.scss']
 })
-export class NgplTableTestComponent   implements OnInit {
+export class NgplTableTestComponent implements OnInit {
   searchRutCtrl = new FormControl();
 
   tableConfig: NgplTableConfigModel = {
@@ -52,10 +52,27 @@ export class NgplTableTestComponent   implements OnInit {
         }
       },
       {
-        column: 'estado', title: 'Estado'
+        column: 'estado', title: 'Estado',
+        columnConfig: {
+          valueIcon: {
+            icon: () => 'check_circle',
+            class: (item) => {
+              const base = 'mat-18 d-flex mx-auto align-items-center mat-18 pr-3 fs-normal';
+              if (item.estado === 'PROCESADO') {
+                return base + ' fc-greenblue ';
+              }
+              return base + ' disabled';
+            },
+            tooltip: (item) => item?.estado,
+            action: (item: any) => console.log(item)
+          }
+        }
       },
       {
-        column: 'movimiento', title: 'Movimiento'
+        column: 'movimiento', title: 'Movimiento',
+        columnConfig: {
+          value: item => `<div class="text-left"> <p> <h1> ${item.movimiento}</h1></p> </div>`
+        }
       },
       {column: 'action', title: 'Opciones', fixed: true, excelSkipExport: true}
     ],
@@ -117,7 +134,7 @@ export class NgplTableTestComponent   implements OnInit {
   estadoFilter = new FormControl();
   searchMovimientoCtrl = new FormControl();
 
-  items  = [];
+  items = [];
   searching = true;
   itemsFiltered = [];
   itemsSelected = [];

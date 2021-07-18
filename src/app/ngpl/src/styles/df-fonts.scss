@@ -1,11 +1,67 @@
+@import "variables";
+
 
 .pointer {
   cursor: pointer !important;
 }
+
+
+.fc-orange {
+  color: $c-orange;
+}
+
+.fc-greenblue {
+  color: $c-greenblue;
+}
+
+.fgc-success {
+  background: -moz-linear-gradient(top, $c-soft-blue 0%, $c-greenblue 70%);
+  background: -webkit-linear-gradient(top, $c-soft-blue 0%, $c-greenblue 70%);
+  background: linear-gradient(to bottom, $c-soft-blue 0%, $c-greenblue 70%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fc-success {
+  color: $c-green-3;
+}
+
+.fgc-error {
+  background: -moz-linear-gradient(top, $c-coral-pink 0%, $c-red 70%);
+  background: -webkit-linear-gradient(top, $c-coral-pink 0%, $c-red 70%);
+  background: linear-gradient(to bottom, $c-coral-pink 0%, $c-red 70%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fc-error {
+  color: $c-red;
+}
+
+
+.fgc-warning {
+  background: -moz-linear-gradient(top, $c-melon 0%, $c-yellow 70%);
+  background: -webkit-linear-gradient(top, $c-melon 0%, $c-yellow 70%);
+  background: linear-gradient(to bottom, $c-melon 0%, $c-yellow 70%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fc-warning {
+  color: $c-orange;
+}
+
 .disabled {
-  color: #cccccc;
+  color: $c-very-light-pink;
+
   &:not(.pointer) {
-    cursor: default!important;
+    cursor: default !important;
   }
 }
 
