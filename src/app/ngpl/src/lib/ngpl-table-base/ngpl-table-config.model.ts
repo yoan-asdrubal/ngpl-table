@@ -3,7 +3,7 @@ import {DataValidation, Style} from 'exceljs';
 export interface NgplTableConfigModel {
   title?: string;
   columns?: NgplTableColumnConfig[] | string[] | any[];
-  selected?: string[];
+  columnSelected?: string[];
   excelConfig?: {
     styles?: {
       columns: StylesConfig[],
@@ -24,7 +24,7 @@ export interface NgplTableColumnConfig {
 
   columnConfig?: NgplColumnConfig;
 
-  filterConfig?: NgplColumnFilterConfig;
+  filteredConfig?: NgplColumnFilteredConfig;
 
   /** Controla si se exporta o no la columna a excel
    * @default false : se exporta a excel por defecto
@@ -58,7 +58,7 @@ export interface NgplColumnConfig {
 
 }
 
-export interface NgplColumnFilterConfig {
+export interface NgplColumnFilteredConfig {
 
   /** Define si el filtro debe aplicarse siempre o no, usado principalmente praa listados asociados a periodos
    */
@@ -70,7 +70,7 @@ export interface NgplColumnFilterConfig {
    * @example arrow function (filter: any) => filter.toString().toUpperCase()
    * @example utilizando funcion definida en el componente (item: any) => this.myCustomTransformFunction.bind(this)
    */
-  value?: (filterValue) => any | string
+  value?: (filterValue) => any | string;
 }
 
 export interface NgplExcelConfig {

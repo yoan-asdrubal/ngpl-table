@@ -86,7 +86,7 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
       }
     } else {
       if (!!config.getOrDefault('filterConfig.filteredValue', null)) {
-        this.value = config.filterConfig.value(f.value).toString().trim();
+        this.value = config.filteredConfig.value(f.value).toString().trim();
       } else {
         this.value = f.value.toString().trim();
       }

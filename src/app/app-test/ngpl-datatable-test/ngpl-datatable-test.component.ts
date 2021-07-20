@@ -49,7 +49,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       },
       {column: 'action', title: 'Opciones', fixed: true, excelSkipExport: true}
     ],
-    selected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'action'], excelConfig: {
+    columnSelected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'action'], excelConfig: {
       styles: {
         columns: [
           {
