@@ -69,19 +69,41 @@
       <ng-container matColumnDef="action">
         <th class="text-center pl-2 pr-3" mat-header-cell *matHeaderCellDef>Opciones</th>
         <td class="text-center pl-2 pr-3" mat-cell *matCellDef="let item">
-          <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle"
-                         *ngIf="item?.tipo !=='PRESTAMO'">
-            <mat-icon class="mat-18 more" [matMenuTriggerFor]="menuRef">more_vert
-            </mat-icon>
-          </ngpl-skeleton>
+          <div>
 
-          <mat-menu #menuRef="matMenu" xPosition="before">
-            <button mat-menu-item matTooltip="Eliminar">
-              <mat-icon class="mat-18">delete</mat-icon>
-              <span>Eliminar</span>
-            </button>
+            <ng-template [ngIf]="tableConfig?.rowOptions">
+              <mat-icon *ngFor="let rc of tableConfig?.rowOptions"
+                        (click)="!rc?.disableOn(item) ?  rc.action(item) : null"
+                        [class.disabled]="rc?.disableOn(item)"
+                        class="{{rc?.iconClass}}"
+                        [matTooltip]="rc?.tooltip || null">
+                {{rc.icon}}
+              </mat-icon>
+            </ng-template>
 
-          </mat-menu>
+            <ng-template [ngIf]="tableConfig?.rowMenuOptions">
+              <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle">
+                <mat-icon class="mat-18 ml-3" [matMenuTriggerFor]="menuRef">
+                  more_vert
+                </mat-icon>
+              </ngpl-skeleton>
+
+            </ng-template>
+
+            <mat-menu #menuRef="matMenu" xPosition="before">
+              <button class="{{rc?.botonClass}}"
+                      (click)="rc.action(item)"
+                      [disabled]="rc?.disableOn(item)"
+                      *ngFor="let rc of tableConfig?.rowMenuOptions"
+                      mat-menu-item
+                      [matTooltip]="rc?.tooltip || null">
+                <mat-icon class="{{rc?.iconClass}}" *ngIf="!!rc?.icon">{{rc?.icon}}</mat-icon>
+                <span>{{rc.text}}</span>
+              </button>
+
+            </mat-menu>
+          </div>
+
         </td>
       </ng-container>
 

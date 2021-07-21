@@ -76,7 +76,8 @@ export class NgplTableTestComponent implements OnInit {
       },
       {column: 'action', title: 'Opciones', fixed: true, excelSkipExport: true}
     ],
-    columnSelected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'action'], excelConfig: {
+    columnSelected: ['select', 'rut', 'nombre', 'valor', 'cnegocio', 'estado', 'movimiento', 'action'],
+    excelConfig: {
       styles: {
         columns: [
           {
@@ -121,7 +122,38 @@ export class NgplTableTestComponent implements OnInit {
           }
         ]
       }
-    }
+    },
+    rowOptions: [
+      {
+        icon: 'check',
+        text: '',
+        tooltip: 'Chequear',
+        action: (item: any) => alert(item.nombre),
+        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        iconClass: 'mat-18',
+        botonClass: ''
+      }
+    ],
+    rowMenuOptions: [
+      {
+        icon: 'delete',
+        text: 'Eliminar',
+        tooltip: 'Eliminar',
+        action: (item: any) => this.eliminar([item]),
+        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        iconClass: 'mat-18',
+        botonClass: ''
+      },
+      {
+        icon: 'check',
+        text: 'Menu Aler',
+        tooltip: 'Alert',
+        action: (item: any) => alert(item?.nombre),
+        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        iconClass: 'mat-18',
+        botonClass: ''
+      }
+    ]
   };
   tiposMovimientosFilter = [];
   opcionesEstado = [];
@@ -184,11 +216,17 @@ export class NgplTableTestComponent implements OnInit {
         cnegocio: this.centroNegocio[index % 3].id,
         movimiento: String.getRandomWord(10),
         valor: Math.random() * 1000 + (index % 2 === 0 ? '111' : ''),
-        estado: this.opcionesEstado[index % 2].id,
+        estado: this.opcionesEstado[index % 3].id,
         nombre: String.getRandomSentence(3)
       };
     });
   }
 
+  eliminar(items): void {
+    this.items = this.items.filter(i => {
+      return !items.some(ii => i.id === ii.id);
+    });
+    alert(items.map(i => i.nombre).join('-'));
+  }
 
 }

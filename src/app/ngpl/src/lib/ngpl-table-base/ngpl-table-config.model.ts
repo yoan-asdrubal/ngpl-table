@@ -4,6 +4,10 @@ export interface NgplTableConfigModel {
   title?: string;
   columns?: NgplTableColumnConfig[] | string[] | any[];
   columnSelected?: string[];
+
+  rowOptions?: NgplRowTableOptions[];
+  rowMenuOptions?: NgplRowTableOptions[];
+
   excelConfig?: {
     styles?: {
       columns: StylesConfig[],
@@ -24,6 +28,7 @@ export interface NgplTableColumnConfig {
 
   columnConfig?: NgplColumnConfig;
 
+
   filteredConfig?: NgplColumnFilteredConfig;
 
   /** Controla si se exporta o no la columna a excel
@@ -35,6 +40,15 @@ export interface NgplTableColumnConfig {
 
 }
 
+export interface NgplRowTableOptions {
+    icon?: string;
+    text?: string;
+    tooltip?: string;
+    action: (item: any) => any;
+    disableOn: (item: any) => any;
+    iconClass?: string;
+    botonClass?: string;
+}
 export interface NgplColumnConfig {
   /** Se utiliza para mostrar texto en el componente de seleccion de columnas, o para encabezado de columna
    * en caso de que no se especifique  @{excelTitulo}
