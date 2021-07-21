@@ -29,7 +29,7 @@ export interface NgplTableColumnConfig {
   columnConfig?: NgplColumnConfig;
 
 
-  filteredConfig?: NgplColumnFilteredConfig;
+  filterConfig?: NgplColumnFilterConfig;
 
   /** Controla si se exporta o no la columna a excel
    * @default false : se exporta a excel por defecto
@@ -72,7 +72,7 @@ export interface NgplColumnConfig {
 
 }
 
-export interface NgplColumnFilteredConfig {
+export interface NgplColumnFilterConfig {
 
   /** Define si el filtro debe aplicarse siempre o no, usado principalmente praa listados asociados a periodos
    */
