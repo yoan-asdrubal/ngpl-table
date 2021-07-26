@@ -17,6 +17,7 @@ import {tap} from 'rxjs/operators';
 export class NgplTableComponent extends NgplBaseTable<any> implements OnInit, OnChanges {
 
   @Input() items = [];
+  @Changes('items') items$: Observable<any[]>;
 
   @Input() tableConfig: NgplTableConfigModel;
   @Changes('tableConfig') tableConfig$: Observable<NgplTableConfigModel>;
@@ -37,6 +38,12 @@ export class NgplTableComponent extends NgplBaseTable<any> implements OnInit, On
       .pipe(
         untilDestroyed(this),
         tap(() => this.generarColumnConfigMap())
+      )
+      .subscribe();
+    this.items$
+      .pipe(
+        untilDestroyed(this),
+        tap((items) => this.updateSelectedIfNotFound(items))
       )
       .subscribe();
 

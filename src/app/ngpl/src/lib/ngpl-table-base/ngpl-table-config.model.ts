@@ -7,6 +7,8 @@ export interface NgplTableConfigModel {
 
   rowOptions?: NgplRowTableOptions[];
   rowMenuOptions?: NgplRowTableOptions[];
+  tableOptions?: NgplTableOptions[];
+  tableMenuOptions?: NgplTableOptions[];
 
   excelConfig?: {
     styles?: {
@@ -41,14 +43,25 @@ export interface NgplTableColumnConfig {
 }
 
 export interface NgplRowTableOptions {
-    icon?: string;
-    text?: string;
-    tooltip?: string;
-    action: (item: any) => any;
-    disableOn: (item: any) => any;
-    iconClass?: string;
-    botonClass?: string;
+  icon?: string;
+  text?: string;
+  tooltip?: string;
+  action: (item: any) => any;
+  disableOn: (item: any) => any;
+  iconClass?: string;
+  botonClass?: string;
 }
+
+export interface NgplTableOptions {
+  icon?: string;
+  text?: string;
+  tooltip?: string;
+  action: (itemSelected: any[], allItems: any[]) => any;
+  disableOn: (hasValue: boolean, itemSelected: any[], allItems: any[] , items: any[]) => any;
+  iconClass?: string;
+  botonClass?: string;
+}
+
 export interface NgplColumnConfig {
   /** Se utiliza para mostrar texto en el componente de seleccion de columnas, o para encabezado de columna
    * en caso de que no se especifique  @{excelTitulo}

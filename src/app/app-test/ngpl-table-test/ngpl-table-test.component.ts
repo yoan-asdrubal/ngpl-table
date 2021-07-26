@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ItemsToMap} from 'ngpl-common';
 import {FormControl} from '@angular/forms';
 import {NgplTableConfigModel} from '../../ngpl/src/lib/ngpl-table-base/ngpl-table-config.model';
+import {Confirmable} from 'ngpl-dialog';
 
 @Component({
   selector: 'ngpl-table-test',
@@ -153,6 +154,37 @@ export class NgplTableTestComponent implements OnInit {
         iconClass: 'mat-18',
         botonClass: ''
       }
+    ],
+    tableOptions: [
+      {
+        icon: 'check',
+        text: '',
+        tooltip: 'Chequear',
+        action: (item: any) => alert(item.nombre),
+        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        iconClass: 'mat-18',
+        botonClass: ''
+      }
+    ],
+    tableMenuOptions: [
+      {
+        icon: 'delete',
+        text: 'Eliminar',
+        tooltip: 'Eliminar',
+        action: (item: any) => this.eliminar(this.itemsSelected),
+        disableOn: (hasValue, itemSelected, itemFiltered, items) => !hasValue,
+        iconClass: 'mat-18',
+        botonClass: ''
+      },
+      {
+        icon: 'check',
+        text: 'Menu Aler',
+        tooltip: 'Alert',
+        action: (item: any) => alert(item?.nombre),
+        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        iconClass: 'mat-18',
+        botonClass: ''
+      }
     ]
   };
   tiposMovimientosFilter = [];
@@ -222,11 +254,12 @@ export class NgplTableTestComponent implements OnInit {
     });
   }
 
+  @Confirmable()
   eliminar(items): void {
+    console.log('items', items, Array.isArray(items));
     this.items = this.items.filter(i => {
       return !items.some(ii => i.id === ii.id);
     });
-    alert(items.map(i => i.nombre).join('-'));
   }
 
 }

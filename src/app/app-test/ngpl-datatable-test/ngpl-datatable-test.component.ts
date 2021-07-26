@@ -4,10 +4,11 @@ import {FormControl} from '@angular/forms';
 import {NgplTableConfigModel} from '../../ngpl/src/lib/ngpl-table-base/ngpl-table-config.model';
 import {NgplBaseTable} from '../../ngpl/src/lib/ngpl-table-base/ngpl-base.table';
 import {BaseTableDec} from '../../ngpl/src/lib';
+import {Confirmable} from 'ngpl-dialog';
 
 @BaseTableDec()
 @Component({
-  selector: 'ngpl-table-test',
+  selector: 'ngpl-datatable-test',
   templateUrl: './ngpl-datatable-test.component.html',
   styleUrls: ['./ngpl-datatable-test.component.scss']
 })
@@ -159,6 +160,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     });
   }
 
+  @Confirmable()
   eliminar(items = this.selectedValues()): void {
     this.deselect(items);
     this.items = this.items.filter(i => {

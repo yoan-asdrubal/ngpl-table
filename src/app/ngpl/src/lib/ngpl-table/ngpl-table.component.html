@@ -17,6 +17,38 @@
                             (viewColumn)="displayColumns = $event">
       </ngpl-column-selector>
 
+      <ng-template [ngIf]="tableConfig?.tableOptions">
+        <mat-icon *ngFor="let rc of tableConfig?.tableOptions"
+                  (click)="rc?.disableOn(hasValue(), itemsFiltered, selectedValues(),items) ?  rc.action(itemsFiltered, items) : null"
+                  [class.disabled]="rc?.disableOn(hasValue(), itemsFiltered,selectedValues(), items)"
+                  class="{{rc?.iconClass}}"
+                  [matTooltip]="rc?.tooltip || null">
+          {{rc.icon}}
+        </mat-icon>
+      </ng-template>
+
+      <ng-template [ngIf]="tableConfig?.tableMenuOptions">
+        <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle">
+          <mat-icon class="mat-18 ml-3" [matMenuTriggerFor]="menuTable">
+            more_vert
+          </mat-icon>
+        </ngpl-skeleton>
+
+      </ng-template>
+
+      <mat-menu #menuTable="matMenu" xPosition="before">
+        <button class="{{rc?.botonClass}}"
+                (click)="rc.action(itemsFiltered, items)"
+                [disabled]="rc?.disableOn(hasValue(), itemsFiltered,selectedValues(), items)"
+                *ngFor="let rc of tableConfig?.tableMenuOptions"
+                mat-menu-item
+                [matTooltip]="rc?.tooltip || null">
+          <mat-icon class="{{rc?.iconClass}}" *ngIf="!!rc?.icon">{{rc?.icon}}</mat-icon>
+          <span>{{rc.text}}</span>
+        </button>
+
+      </mat-menu>
+
     </div>
     <table #table mat-table matSort>
       <ng-template ngFor [ngForOf]="tableConfig?.columns" let-config>
