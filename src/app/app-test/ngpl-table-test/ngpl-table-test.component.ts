@@ -162,7 +162,7 @@ export class NgplTableTestComponent implements OnInit {
         tooltip: 'Chequear',
         action: (item: any) => alert(item.nombre),
         disableOn: (item: any) => item?.estado === 'CANCELADO',
-        iconClass: 'mat-18',
+        iconClass: 'mat-18 ml-3',
         botonClass: ''
       }
     ],
@@ -172,7 +172,7 @@ export class NgplTableTestComponent implements OnInit {
         text: 'Eliminar',
         tooltip: 'Eliminar',
         action: (item: any) => this.eliminar(this.itemsSelected),
-        disableOn: (hasValue, itemSelected, itemFiltered, items) => !hasValue,
+        disableOn: (hasValue) => !hasValue,
         iconClass: 'mat-18',
         botonClass: ''
       },
@@ -181,7 +181,7 @@ export class NgplTableTestComponent implements OnInit {
         text: 'Menu Aler',
         tooltip: 'Alert',
         action: (item: any) => alert(item?.nombre),
-        disableOn: (item: any) => item?.estado === 'CANCELADO',
+        disableOn: (hasValue) => !hasValue,
         iconClass: 'mat-18',
         botonClass: ''
       }

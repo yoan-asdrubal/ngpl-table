@@ -57,7 +57,8 @@ export interface NgplTableOptions {
   text?: string;
   tooltip?: string;
   action: (itemSelected: any[], allItems: any[]) => any;
-  disableOn: (hasValue: boolean, itemSelected: any[], allItems: any[] , items: any[]) => any;
+
+  disableOn: (hasSelectedValue: boolean, itemSelected: any[], itemFiltered: any[], allItems: any[]) => any | any;
   iconClass?: string;
   botonClass?: string;
 }

@@ -19,8 +19,8 @@
 
       <ng-template [ngIf]="tableConfig?.tableOptions">
         <mat-icon *ngFor="let rc of tableConfig?.tableOptions"
-                  (click)="rc?.disableOn(hasValue(), itemsFiltered, selectedValues(),items) ?  rc.action(itemsFiltered, items) : null"
-                  [class.disabled]="rc?.disableOn(hasValue(), itemsFiltered,selectedValues(), items)"
+                  (click)="rc?.disableOn(hasValue(), selectedValues(),itemsFiltered, items) ?  rc.action(itemsFiltered, items) : null"
+                  [class.disabled]="rc?.disableOn(hasValue(), selectedValues(),itemsFiltered, items)"
                   class="{{rc?.iconClass}}"
                   [matTooltip]="rc?.tooltip || null">
           {{rc.icon}}
@@ -28,18 +28,16 @@
       </ng-template>
 
       <ng-template [ngIf]="tableConfig?.tableMenuOptions">
-        <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle">
-          <mat-icon class="mat-18 ml-3" [matMenuTriggerFor]="menuTable">
+          <mat-icon class="mat-18 ml-3 mr-3" [matMenuTriggerFor]="menuTable">
             more_vert
           </mat-icon>
-        </ngpl-skeleton>
 
       </ng-template>
 
       <mat-menu #menuTable="matMenu" xPosition="before">
         <button class="{{rc?.botonClass}}"
                 (click)="rc.action(itemsFiltered, items)"
-                [disabled]="rc?.disableOn(hasValue(), itemsFiltered,selectedValues(), items)"
+                [disabled]="rc?.disableOn(hasValue(), selectedValues(),itemsFiltered, items)"
                 *ngFor="let rc of tableConfig?.tableMenuOptions"
                 mat-menu-item
                 [matTooltip]="rc?.tooltip || null">
