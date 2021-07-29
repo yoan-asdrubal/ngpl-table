@@ -1,0 +1,13 @@
+<div>
+  <ngpl-table
+    [searching]="searching"
+    [items]="items"
+    [tableConfig]="tableConfig"
+
+    (itemFilteredEvent)="itemsFiltered = $event"
+    (itemSelectedEvent)="itemsSelected = $event"
+  >
+
+  </ngpl-table>
+</div>
+

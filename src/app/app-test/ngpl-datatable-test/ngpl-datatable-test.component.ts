@@ -4,10 +4,11 @@ import {FormControl} from '@angular/forms';
 import {NgplTableConfigModel} from '../../ngpl/src/lib/ngpl-table-base/ngpl-table-config.model';
 import {NgplBaseTable} from '../../ngpl/src/lib/ngpl-table-base/ngpl-base.table';
 import {BaseTableDec} from '../../ngpl/src/lib';
+import {Confirmable} from 'ngpl-dialog';
 
 @BaseTableDec()
 @Component({
-  selector: 'ngpl-table-test',
+  selector: 'ngpl-datatable-test',
   templateUrl: './ngpl-datatable-test.component.html',
   styleUrls: ['./ngpl-datatable-test.component.scss']
 })
@@ -32,8 +33,10 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       {
         column: 'cnegocio',
         title: 'Área',
-        filteredValue: (value: any[]) => {
-          return value.map(v => this.centroNegocioMap[v]?.descripcion || v).join(',');
+        filterConfig: {
+          filteredValue: (value: any[]) => {
+            return value.map(v => this.centroNegocioMap[v]?.descripcion || v).join(',');
+          }
         },
         excelConfig: {
           value: (item) => this.centroNegocioMap[item.cnegocio]?.descripcion
@@ -45,9 +48,9 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
       {
         column: 'movimiento', title: 'Movimiento'
       },
-      {column: 'accion', title: 'Opciones', fixed: true, excelSkipExport: true}
+      {column: 'action', title: 'Opciones', fixed: true, excelSkipExport: true}
     ],
-    selected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'accion'], excelConfig: {
+    columnSelected: ['select', 'rut', 'nombre', 'movimiento', 'valor', 'cnegocio', 'estado', 'action'], excelConfig: {
       styles: {
         columns: [
           {
@@ -157,13 +160,13 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     });
   }
 
+  @Confirmable()
   eliminar(items = this.selectedValues()): void {
     this.deselect(items);
     this.items = this.items.filter(i => {
-      return !items.some( ii => i.id === ii.id);
+      return !items.some(ii => i.id === ii.id);
     });
   }
-
 
 
 }

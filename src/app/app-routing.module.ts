@@ -1,14 +1,27 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {NgplDatatableTestComponent} from './app-test/ngpl-table-test/ngpl-datatable-test.component';
+import {NgplTableTestComponent} from './app-test/ngpl-table-test/ngpl-table-test.component';
+import {NgplDatatableTestComponent} from './app-test/ngpl-datatable-test/ngpl-datatable-test.component';
 
 const routes: Routes = [
   {
     path: 'ngpl-datatable',
-    component: NgplDatatableTestComponent
+    component: NgplDatatableTestComponent,
+    data: {
+      title: 'Datatable Test'
+    }
+  }, {
+    path: 'ngpl-table',
+    component: NgplTableTestComponent,
+    data: {
+      title: 'New Table Test'
+    }
   }, {
     path: '**',
-    component: NgplDatatableTestComponent
+    component: NgplTableTestComponent,
+    data: {
+      title: 'New Table Test'
+    }
   }
 ];
 

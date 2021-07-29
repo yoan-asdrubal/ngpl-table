@@ -27,12 +27,14 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgplCommonModule} from 'ngpl-common';
 import {NgplTableModule} from './ngpl/src/lib';
-import {NgplDatatableTestComponent} from './app-test/ngpl-table-test/ngpl-datatable-test.component';
+import {NgplTableTestComponent} from './app-test/ngpl-table-test/ngpl-table-test.component';
 import {NgplSelectModule} from 'ngpl-select';
 import {NgplSelectMultipleModule} from 'ngpl-select-multiple';
 import {MatMenuModule} from '@angular/material/menu';
 import {NgplFieldModule} from 'ngpl-field';
 import {NgplFilterModule} from 'ngpl-filter';
+import {NgplDatatableTestComponent} from './app-test/ngpl-datatable-test/ngpl-datatable-test.component';
+import {NgplDialogModule} from 'ngpl-dialog';
 // import 'ngpl-common/lib/ngpl-interfaces/string.interface';
 // import 'ngpl-common/lib/ngpl-interfaces/object.interface';
 
@@ -63,6 +65,7 @@ const materialModules = [
   declarations: [
     AppComponent,
     SideNavComponent,
+    NgplTableTestComponent,
     NgplDatatableTestComponent
   ],
   imports: [
@@ -77,7 +80,8 @@ const materialModules = [
     NgplFilterModule,
     NgplSelectModule,
     NgplSelectMultipleModule,
-    NgplFieldModule
+    NgplFieldModule,
+    NgplDialogModule
   ],
   providers: [{
     provide: LOCALE_ID, useValue: 'es-cl'

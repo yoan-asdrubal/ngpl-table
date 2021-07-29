@@ -84,10 +84,10 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
               }
             }
           });
-          val.selected.forEach(v => this.form.get(v).setValue(true));
+          val.columnSelected.forEach(v => this.form.get(v).setValue(true));
           this.columnConfig = val;
           this.initFormChangesSubscription();
-          this.viewColumn.emit(val.selected);
+          this.viewColumn.emit(val.columnSelected);
         })
       )
       .subscribe();
