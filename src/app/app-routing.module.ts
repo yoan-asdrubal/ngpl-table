@@ -6,13 +6,22 @@ import {NgplDatatableTestComponent} from './app-test/ngpl-datatable-test/ngpl-da
 const routes: Routes = [
   {
     path: 'ngpl-datatable',
-    component: NgplDatatableTestComponent
+    component: NgplDatatableTestComponent,
+    data: {
+      title: 'Datatable Test'
+    }
   }, {
     path: 'ngpl-table',
-    component: NgplTableTestComponent
+    component: NgplTableTestComponent,
+    data: {
+      title: 'New Table Test'
+    }
   }, {
     path: '**',
-    component: NgplTableTestComponent
+    component: NgplTableTestComponent,
+    data: {
+      title: 'New Table Test'
+    }
   }
 ];
 

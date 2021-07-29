@@ -1,10 +1,4 @@
-<div id="bonos-container" class="page-container">
-  <div class="page-title">
-    <label>Movimientos</label>
-
-  </div>
-
-  <div>
+<div class="page-container">
     <ngpl-datatable #widgetFilter
                     [items]="items"
                     (itemFilteredChange)="itemsFiltered = $event"
@@ -253,5 +247,4 @@
         <mat-paginator></mat-paginator>
       </div>
     </ngpl-datatable>
-  </div>
 </div>

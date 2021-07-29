@@ -1,17 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>NGPL Table</mat-toolbar>
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>NGPL-TABLE</mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list>
-<!--      <mat-list-item  >-->
-<!--        <mat-icon mat-list-icon>note</mat-icon>-->
-<!--        <div >Pipe</div>-->
-<!--      </mat-list-item>-->
-      <a mat-list-item routerLink="/ngpl-datatable">Ngpl DataTable</a>
-      <a mat-list-item routerLink="/ngpl-table">Ngpl Full Table</a>
+      <a mat-list-item *ngFor="let route of navigation"
+         [routerLinkActive]="'route-active'"
+         [routerLink]="route.path">{{route.title}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -24,7 +21,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="full-width">Documentation</span>
+      <span class="full-width">{{title}}</span>
     </mat-toolbar>
     <section class="m-3" id="app-container">
       <router-outlet></router-outlet>
