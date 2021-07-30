@@ -55,6 +55,6 @@ export class NgplTableComponent extends NgplBaseTable<any> implements OnInit, On
       .subscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
   }
 }

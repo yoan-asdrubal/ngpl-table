@@ -31,7 +31,7 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/ngpl-dialog/assets",
+                "input": "./node_modules/ngpl-dialog/assets/",
                 "output": "/assets/"
               }
             ],
