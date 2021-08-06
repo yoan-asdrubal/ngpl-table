@@ -34,7 +34,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
         column: 'cnegocio',
         title: 'Área',
         filterConfig: {
-          filteredValue: (value: any[]) => {
+          value: (value: any[]) => {
             return value.map(v => this.centroNegocioMap[v]?.descripcion || v).join(',');
           }
         },

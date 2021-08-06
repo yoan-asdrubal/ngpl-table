@@ -1,6 +1,7 @@
-<div class="filter-applied" *ngIf="!!value && value.toString().length > 0">
-    <span class="field" (click)="openFilterMenuOption()">{{field| titlecase}}:</span><span
-        (click)="openFilterMenuOption()">{{value}}</span>
-    <span class="close" *ngIf="!currentConfig?.fixedFilter && !customField" (click)="clearFilter()">&#10006;</span>
-    <span class="close" *ngIf="!!currentConfig?.fixedFilter || !!customField"> </span>
+<div class="filter-applied bg-{{color}}" *ngIf="!!value && value.toString().length > 0">
+  <span class="field" (click)="openFilterMenuOption()">{{field| titlecase}}:</span><span
+  (click)="openFilterMenuOption()">{{value}}</span>
+  <span class="close" *ngIf="!currentConfig?.filterConfig?.fixedFilter && !customField"
+        (click)="clearFilter()">&#10006;</span>
+  <span class="close" *ngIf="!!currentConfig?.filterConfig?.fixedFilter || !!customField"> </span>
 </div>

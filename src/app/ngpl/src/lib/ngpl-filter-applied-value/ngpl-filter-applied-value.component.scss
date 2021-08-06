@@ -6,13 +6,16 @@
   letter-spacing: 0.6px;
   color: $c-white;
   align-self: flex-start;
-  background: $c-orange;
   padding: 0;
   border-radius: 15px;
   display: flex;
   align-items: center;
   margin: 5px 10px 5px 5px;
   min-height: 30px;
+
+  &.bg-base {
+    background: #fc7a23
+  }
 
   span {
     padding-left: 10px;

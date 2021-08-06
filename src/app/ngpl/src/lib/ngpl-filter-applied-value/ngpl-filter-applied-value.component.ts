@@ -28,6 +28,15 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
   @Input() customValue = null;
   @Changes('customValue') customValue$: Observable<string>;
 
+  /**
+   * Definira la clase que dara los estilos al componente, por defecto
+   *
+   * la clase sera ng-{color especificado por parametro}
+   *
+   * @example color='primary' , clase bg-primary
+   * @example color='custom' , clase bg-custom
+    */
+  @Input() color = 'accent';
   field = '';
   value = null;
   datePipe = new DatePipe('en');
@@ -85,7 +94,7 @@ export class NgplFilterAppliedValueComponent implements OnInit, OnChanges {
         this.value = f.value.toString().trim();
       }
     } else {
-      if (!!config.getOrDefault('filterConfig.filteredValue', null)) {
+      if (!!config.getOrDefault('filterConfig.value', null)) {
         this.value = config.filterConfig.value(f.value).toString().trim();
       } else {
         this.value = f.value.toString().trim();

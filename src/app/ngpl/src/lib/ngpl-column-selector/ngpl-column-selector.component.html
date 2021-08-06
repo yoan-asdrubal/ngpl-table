@@ -14,9 +14,8 @@
 			<form [formGroup]="form" *ngIf="!!columnConfig?.columns">
 				<div id="selectores">
 					<ng-template ngFor [ngForOf]="columnConfig?.columns" let-item>
-						<mat-slide-toggle [color]="'#fc9e32'" *ngIf="!item?.columnConfig?.hideColumn"
-						                  [formControlName]="item?.column || item"
-						                  color="primary">
+						<mat-slide-toggle color="accent" *ngIf="!item?.columnConfig?.hideColumn"
+						                  [formControlName]="item?.column || item">
 							{{item?.columnConfig?.title || item?.title ||  item?.column || item }}
 						</mat-slide-toggle>
 					</ng-template>

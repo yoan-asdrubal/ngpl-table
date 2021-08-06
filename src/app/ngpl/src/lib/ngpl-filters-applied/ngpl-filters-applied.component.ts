@@ -26,7 +26,15 @@ export class NgplFiltersAppliedComponent implements OnInit, NgplFilterAppliedBas
 
   @Output() filterConfigEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() filterAppliedEvent: EventEmitter<any> = new EventEmitter<any>();
-
+  /**
+   * Definira la clase que dara los estilos al componente, por defecto
+   *
+   * la clase sera ng-{color especificado por parametro}
+   *
+   * @example color='primary' , clase bg-primary
+   * @example color='custom' , clase bg-custom
+   */
+  @Input() color = 'accent';
   constructor() {
   }
 
