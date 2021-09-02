@@ -12,8 +12,8 @@ export interface NgplTableConfigModel {
 
   excelConfig?: {
     styles?: {
-      columns: StylesConfig[],
-      rows: StylesConfig[]
+      columns?: StylesConfig[],
+      rows?: StylesConfig[]
     };
   };
 }
