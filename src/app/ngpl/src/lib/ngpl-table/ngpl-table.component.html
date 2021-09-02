@@ -14,7 +14,7 @@
 
       </ngpl-filter-menu>
       <ngpl-column-selector [columnConfig]="tableConfig" class="ml-3 "
-                            (viewColumn)="displayColumns = $event">
+                            (viewColumn)="setDisplayColumns($event)">
       </ngpl-column-selector>
 
       <ng-template [ngIf]="tableConfig?.tableOptions">

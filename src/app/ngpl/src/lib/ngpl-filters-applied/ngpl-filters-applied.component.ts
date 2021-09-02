@@ -22,7 +22,7 @@ export class NgplFiltersAppliedComponent implements OnInit, NgplFilterAppliedBas
 
   @Input() columnConfig: { [key: string]: NgplTableColumnConfig } = {};
 
-  @Input() columns;
+  @Input() columns = [];
 
   @Output() filterConfigEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() filterAppliedEvent: EventEmitter<any> = new EventEmitter<any>();

@@ -14,7 +14,6 @@ import {Confirmable} from 'ngpl-dialog';
 })
 export class NgplDatatableTestComponent extends NgplBaseTable<any> implements OnInit {
   searchRutCtrl = new FormControl();
-
   tableConfig: NgplTableConfigModel = {
     title: 'Listado de empleados',
     columns: [

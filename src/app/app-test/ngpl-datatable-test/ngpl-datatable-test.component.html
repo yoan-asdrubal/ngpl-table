@@ -1,250 +1,250 @@
 <div class="page-container">
-    <ngpl-datatable #widgetFilter
-                    [items]="items"
-                    (itemFilteredChange)="itemsFiltered = $event"
-                    [searching]="searching">
-      <div class="table-container" #mov_table>
-        <div class="table-options end">
-          <ngpl-filters-applied #filteredValues ngplWidth="100%" class="ml-3"
-                                [columns]="displayColumns"
-                                [columnConfig]="columnConfigMap">
+  <ngpl-datatable #widgetFilter
+                  [items]="items"
+                  (itemFilteredChange)="itemsFiltered = $event"
+                  [searching]="searching">
+    <div class="table-container" #mov_table>
+      <div class="table-options end">
+        <ngpl-filters-applied #filteredValues ngplWidth="100%" class="ml-3"
+                              [columns]="displayColumns"
+                              [columnConfig]="columnConfigMap">
 
-          </ngpl-filters-applied>
-          <span class="flex-100"></span>
-          <ngpl-filter-menu #filterOptionComponent useIcon="true">
+        </ngpl-filters-applied>
+        <span class="flex-100"></span>
+        <ngpl-filter-menu #filterOptionComponent useIcon="true">
 
-            <ngpl-field ngplWidth="250px"
-                        placeHolder="Buscar por Rut o Nombre y Apellidos"
-                        appearance="default"
-                        customClass="shrink bb-1 "
-                        [formControl]="searchRutCtrl" autocomplete="off"
-                        [ngplFilterConfig]="{
+          <ngpl-field ngplWidth="250px"
+                      placeHolder="Buscar por Rut o Nombre y Apellidos"
+                      appearance="default"
+                      customClass="shrink bb-1 "
+                      [formControl]="searchRutCtrl" autocomplete="off"
+                      [ngplFilterConfig]="{
                          name:'Filtro',
                          keys:['rut','nombre','appaterno','apmaterno'],
                          filterApplied: filteredValues
                }"
-            >
-            </ngpl-field>
+          >
+          </ngpl-field>
 
-            <ngpl-field ngplWidth="250px"
-                        placeHolder="Buscar por Movimiento"
-                        appearance="default"
-                        class="mt-45"
-                        customClass="shrink bb-1 "
-                        [formControl]="searchMovimientoCtrl" autocomplete="off"
-                        [ngplFilterConfig]="{
+          <ngpl-field ngplWidth="250px"
+                      placeHolder="Buscar por Movimiento"
+                      appearance="default"
+                      class="mt-45"
+                      customClass="shrink bb-1 "
+                      [formControl]="searchMovimientoCtrl" autocomplete="off"
+                      [ngplFilterConfig]="{
                            name:'Movimiento',
                            column:'movimiento',
                            keys:['movimiento'],
                            filterApplied: filteredValues
                          }"
-            >
-            </ngpl-field>
+          >
+          </ngpl-field>
 
-            <ngpl-select-multiple
-              appearance="default"
-              class="mt-45"
-              customClass="shrink bb-1"
-              ngplWidth="250px"
-              [items]="centroNegocio || []"
-              [filterBy]="['descripcion']"
-              propValue="id"
-              propLabel="descripcion"
-              placeHolder="Área"
-              panelWidth="270px"
-              [ngplFilterConfig]='{
+          <ngpl-select-multiple
+            appearance="default"
+            class="mt-45"
+            customClass="shrink bb-1"
+            ngplWidth="250px"
+            [items]="centroNegocio || []"
+            [filterBy]="['descripcion']"
+            propValue="id"
+            propLabel="descripcion"
+            placeHolder="Área"
+            panelWidth="270px"
+            [ngplFilterConfig]='{
 								name:"Área",
 								column:"cnegocio",
 								keys:["cnegocio"],
                  filterApplied: filteredValues
 								}'>
-            </ngpl-select-multiple>
+          </ngpl-select-multiple>
 
 
-            <ngpl-select
-              [items]="opcionesEstado"
-              appearance="default"
-              searcheable="false"
-              propValue="id"
-              class="mt-45"
-              customClass="shrink  bb-1"
-              ngplWidth="250px"
-              propLabel="descripcion"
-              placeHolder="Estado"
-              floatLabel="never"
-              panelWidth="250px"
-              [formControl]="estadoFilter"
-              [ngplFilterConfig]='{
+          <ngpl-select
+            [items]="opcionesEstado"
+            appearance="default"
+            searcheable="false"
+            propValue="id"
+            class="mt-45"
+            customClass="shrink  bb-1"
+            ngplWidth="250px"
+            propLabel="descripcion"
+            placeHolder="Estado"
+            floatLabel="never"
+            panelWidth="250px"
+            [formControl]="estadoFilter"
+            [ngplFilterConfig]='{
               name:"estado",
               keys:["estado"],
               filterApplied: filteredValues
               }'
-            ></ngpl-select>
+          ></ngpl-select>
 
-          </ngpl-filter-menu>
-          <ngpl-column-selector [columnConfig]="tableConfig" class="ml-3 "
-                                (viewColumn)="displayColumns = $event">
+        </ngpl-filter-menu>
+        <ngpl-column-selector [columnConfig]="tableConfig" class="ml-3 "
+                              (viewColumn)="setDisplayColumns( $event)">
 
-          </ngpl-column-selector>
-          <button mat-mini-fab matTooltip="Eliminar" class="ml-3" color="" (click)="eliminar()">
-            <mat-icon class="mat-18">delete</mat-icon>
+        </ngpl-column-selector>
+        <button mat-mini-fab matTooltip="Eliminar" class="ml-3" color="" (click)="eliminar()">
+          <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+        <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" color="" (click)="initData()">
+          <mat-icon class="mat-18">refresh</mat-icon>
+        </button>
+        <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color=""
+                (click)="generateAndDownloadExcel()">
+          <mat-icon class="mat-18">file_download</mat-icon>
+        </button>
+      </div>
+      <table #table mat-table matSort>
+        <ng-container matColumnDef="select">
+          <th scope="col" mat-header-cell *matHeaderCellDef>
+            <mat-checkbox [disabled]="items?.length===0"
+                          (change)="$event ? masterToggle(itemsFiltered) : null"
+                          [checked]="isAllSelected(itemsFiltered)"
+                          [indeterminate]="hasValue() && !isAllSelected(itemsFiltered)">
+            </mat-checkbox>
+          </th>
+          <td [attr.data-label]="'Seleccionar'" mat-cell *matCellDef="let row">
+            <ngpl-skeleton [isLoading]="searching" width="25px" height="25px" shape="circle">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? toggle(row) : null"
+                            [checked]="isSelected(row)">
+              </mat-checkbox>
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+        <!-- Numero Column -->
+        <ng-container matColumnDef="rut">
+          <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Rut
+          </th>
+          <td class="px-2" mat-cell *matCellDef="let element">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              {{element?.rut }}
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre y Apellidos</th>
+          <td class="px-2" mat-cell *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              {{item?.nombre}}
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="cnegocio">
+          <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Área</th>
+          <td class="px-2" mat-cell *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              {{centroNegocioMap[item?.cnegocio]?.descripcion}}
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="movimiento">
+          <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Movimiento</th>
+          <td class="px-2" mat-cell *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              {{item?.movimiento}}
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="valor">
+          <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
+          <td class="px-2" mat-cell *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
+              {{item?.valor}}
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+
+
+        <!--					Los estados serían pendiente y aprobado , pendiente en rojo y aprobado en verde.-->
+        <ng-container matColumnDef="estado">
+          <th class="text-center px-2" scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Estado
+          </th>
+          <td class="text-center px-2" mat-cell [attr.data-label]="'Estado'" *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle">
+              <mat-icon
+                class="mat-18 fc-greenblue d-flex mx-auto align-items-center mat-18 pr-3 fs-normal"
+                matTooltip="APROBADO" *ngIf="item?.estado =='OK'">check_circle
+              </mat-icon>
+              <mat-icon
+                class="mat-18 disabled d-flex mx-auto align-items-center mat-18 pr-3 fs-normal"
+                matTooltip="PENDIENTE" *ngIf="item?.estado=='PENDIENTE'">check_circle
+              </mat-icon>
+
+              <!--								<mat-chip-list>-->
+              <!--									<mat-chip-->
+              <!--											[class.ok]=" item?.estado =='OK'"-->
+              <!--											[class.pointer]=" item?.estado=='OK' || item?.estado=='ERROR'"-->
+              <!--											[class.error]="item?.estado==='ERROR'"-->
+              <!--											[class.progress]="item?.estado=='PENDIENTE'"-->
+              <!--									>-->
+              <!--										{{(item?.estado == 'OK' ? 'Completado' : item?.estado) | uppercase}}-->
+              <!--									</mat-chip>-->
+              <!--								</mat-chip-list>-->
+            </ngpl-skeleton>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th class="text-center pl-2 pr-3" mat-header-cell *matHeaderCellDef>Opciones</th>
+          <td class="text-center pl-2 pr-3" mat-cell *matCellDef="let item">
+            <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle"
+                           *ngIf="item?.tipo !=='PRESTAMO'">
+              <mat-icon class="mat-18 more" [matMenuTriggerFor]="menuRef">more_vert
+              </mat-icon>
+            </ngpl-skeleton>
+
+            <mat-menu #menuRef="matMenu" xPosition="before">
+              <!--										<button mat-menu-item [routerLink]="['Anticipo', item?.id]"-->
+              <!--										        [queryParams]="{anno:rangeDateCtrl?.value?.anno, mes:rangeDateCtrl?.value?.mes, preview:true}">-->
+              <!--											<mat-icon class="mat-18">find_in_page</mat-icon>-->
+              <!--											<span>Vista previa</span>-->
+              <!--										</button>-->
+
+              <button mat-menu-item matTooltip="Eliminar" (click)="eliminar(item)">
+                <mat-icon class="mat-18">delete</mat-icon>
+                <span>Eliminar</span>
+              </button>
+
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+      </table>
+      <div *ngIf="table.dataSource?.data?.length === 0 && !searching" class="no-result-actions">
+        <ng-template [ngIf]="!!widgetFilter.hasFilterApplied">
+          <p class="mt-3">
+            No se encontraron coincidencias en la búsqueda
+          </p>
+          <button class="btn mr-3 mt-3 mb-3" mat-button (click)="widgetFilter.clearFilter()">
+            Limpiar filtros
           </button>
-          <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" color="" (click)="initData()">
+        </ng-template>
+
+        <ng-template [ngIf]="!widgetFilter.hasFilterApplied">
+          <p class="mt-3">
+            No hay datos registrados
+          </p>
+          <button mat-mini-fab class="ml-3 mr-3 mb-3" color="" (click)="initData()">
             <mat-icon class="mat-18">refresh</mat-icon>
           </button>
-          <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color=""
-                  (click)="generateAndDownloadExcel()">
-            <mat-icon class="mat-18">file_download</mat-icon>
-          </button>
-        </div>
-        <table #table mat-table matSort>
-          <ng-container matColumnDef="select">
-            <th scope="col" mat-header-cell *matHeaderCellDef>
-              <mat-checkbox [disabled]="items?.length===0"
-                            (change)="$event ? masterToggle(itemsFiltered) : null"
-                            [checked]="isAllSelected(itemsFiltered)"
-                            [indeterminate]="hasValue() && !isAllSelected(itemsFiltered)">
-              </mat-checkbox>
-            </th>
-            <td [attr.data-label]="'Seleccionar'" mat-cell *matCellDef="let row">
-              <ngpl-skeleton [isLoading]="searching" width="25px" height="25px" shape="circle">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                              (change)="$event ? toggle(row) : null"
-                              [checked]="isSelected(row)">
-                </mat-checkbox>
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-          <!-- Numero Column -->
-          <ng-container matColumnDef="rut">
-            <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Rut
-            </th>
-            <td class="px-2" mat-cell *matCellDef="let element">
-              <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-                {{element?.rut }}
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-
-          <!-- Nombre Column -->
-          <ng-container matColumnDef="nombre">
-            <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre y Apellidos</th>
-            <td class="px-2" mat-cell *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-                {{item?.nombre}}
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-
-          <!-- Nombre Column -->
-          <ng-container matColumnDef="cnegocio">
-            <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Área</th>
-            <td class="px-2" mat-cell *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-                {{centroNegocioMap[item?.cnegocio]?.descripcion}}
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
+        </ng-template>
 
 
-          <ng-container matColumnDef="movimiento">
-            <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Movimiento</th>
-            <td class="px-2" mat-cell *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-                {{item?.movimiento}}
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="valor">
-            <th class="px-2" mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
-            <td class="px-2" mat-cell *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" width="75%" height="15px">
-                {{item?.valor}}
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-
-
-          <!--					Los estados serían pendiente y aprobado , pendiente en rojo y aprobado en verde.-->
-          <ng-container matColumnDef="estado">
-            <th class="text-center px-2" scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
-              Estado
-            </th>
-            <td class="text-center px-2" mat-cell [attr.data-label]="'Estado'" *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle">
-                <mat-icon
-                  class="mat-18 fc-greenblue d-flex mx-auto align-items-center mat-18 pr-3 fs-normal"
-                  matTooltip="APROBADO" *ngIf="item?.estado =='OK'">check_circle
-                </mat-icon>
-                <mat-icon
-                  class="mat-18 disabled d-flex mx-auto align-items-center mat-18 pr-3 fs-normal"
-                  matTooltip="PENDIENTE" *ngIf="item?.estado=='PENDIENTE'">check_circle
-                </mat-icon>
-
-                <!--								<mat-chip-list>-->
-                <!--									<mat-chip-->
-                <!--											[class.ok]=" item?.estado =='OK'"-->
-                <!--											[class.pointer]=" item?.estado=='OK' || item?.estado=='ERROR'"-->
-                <!--											[class.error]="item?.estado==='ERROR'"-->
-                <!--											[class.progress]="item?.estado=='PENDIENTE'"-->
-                <!--									>-->
-                <!--										{{(item?.estado == 'OK' ? 'Completado' : item?.estado) | uppercase}}-->
-                <!--									</mat-chip>-->
-                <!--								</mat-chip-list>-->
-              </ngpl-skeleton>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th class="text-center pl-2 pr-3" mat-header-cell *matHeaderCellDef>Opciones</th>
-            <td class="text-center pl-2 pr-3" mat-cell *matCellDef="let item">
-              <ngpl-skeleton [isLoading]="searching" height="24px" width="24px" shape="circle"
-                             *ngIf="item?.tipo !=='PRESTAMO'">
-                <mat-icon class="mat-18 more" [matMenuTriggerFor]="menuRef">more_vert
-                </mat-icon>
-              </ngpl-skeleton>
-
-              <mat-menu #menuRef="matMenu" xPosition="before">
-                <!--										<button mat-menu-item [routerLink]="['Anticipo', item?.id]"-->
-                <!--										        [queryParams]="{anno:rangeDateCtrl?.value?.anno, mes:rangeDateCtrl?.value?.mes, preview:true}">-->
-                <!--											<mat-icon class="mat-18">find_in_page</mat-icon>-->
-                <!--											<span>Vista previa</span>-->
-                <!--										</button>-->
-
-                <button mat-menu-item matTooltip="Eliminar" (click)="eliminar(item)">
-                  <mat-icon class="mat-18">delete</mat-icon>
-                  <span>Eliminar</span>
-                </button>
-
-              </mat-menu>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
-        </table>
-        <div *ngIf="table.dataSource?.data?.length === 0 && !searching" class="no-result-actions">
-          <ng-template [ngIf]="!!widgetFilter.hasFilterApplied">
-            <p class="mt-3">
-              No se encontraron coincidencias en la búsqueda
-            </p>
-            <button class="btn mr-3 mt-3 mb-3" mat-button (click)="widgetFilter.clearFilter()">
-              Limpiar filtros
-            </button>
-          </ng-template>
-
-          <ng-template [ngIf]="!widgetFilter.hasFilterApplied">
-            <p class="mt-3">
-              No hay datos registrados
-            </p>
-            <button mat-mini-fab class="ml-3 mr-3 mb-3" color="" (click)="initData()">
-              <mat-icon class="mat-18">refresh</mat-icon>
-            </button>
-          </ng-template>
-
-
-        </div>
-        <mat-paginator></mat-paginator>
       </div>
-    </ngpl-datatable>
+      <mat-paginator></mat-paginator>
+    </div>
+  </ngpl-datatable>
 </div>

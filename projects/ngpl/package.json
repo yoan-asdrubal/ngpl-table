@@ -1,10 +1,10 @@
 {
   "name": "ngpl-datatable",
-  "version": "1.0.21",
+  "version": "1.0.26",
   "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.0.0",
-    "ngpl-common": "^2.0.26",
+    "ngpl-common": "^2.0.33",
     "ngpl-filter": "^1.0.7",
     "exceljs": "^4.2.1"
   }

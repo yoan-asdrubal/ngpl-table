@@ -75,7 +75,7 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
         untilDestroyed(this),
         tap((val: NgplTableConfigModel) => {
           this.form = new FormGroup({});
-          val.columns.forEach(v => {
+          val?.columns?.forEach(v => {
             if (!v.hideColumn) {
               this.form.addControl(v.getOrDefault('column', v), new FormControl());
 
@@ -84,10 +84,10 @@ export class NgplColumnSelectorComponent implements OnInit, OnChanges {
               }
             }
           });
-          val.columnSelected.forEach(v => this.form.get(v).setValue(true));
+          val?.columnSelected?.forEach(v => this.form.get(v).setValue(true));
           this.columnConfig = val;
           this.initFormChangesSubscription();
-          this.viewColumn.emit(val.columnSelected);
+          this.viewColumn.emit(val?.columnSelected || []);
         })
       )
       .subscribe();

@@ -29,6 +29,10 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
     super(key);
   }
 
+  setDisplayColumns(columns): void {
+    Promise.resolve(null).then(c => this.displayColumns = columns);
+  }
+
   /**
    * Metodo para generar un mapa de datos con la configuracion de las columnas basado en la configuracion inicial
    * utilizado para acceder a una configuracion especifica sin necesidad de hacer una busqueda sobre el arreglo de columnas
@@ -47,26 +51,18 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
    * @param columns : por defecto las columnas seleccionadas para mostrar en la tabla
    * @param nombreFichero : nombre del documnto que se desea exportar
    */
-  generateAndDownloadExcel(
-    config: Partial<{
-      items,
-      columns,
-      docName,
-      workbook,
-      sheetName,
-      sheetStyleFn
-    }> = {
-      items: this.hasValue() ? this.selectedValues() : this.itemsFiltered,
-      columns: this.displayColumns,
-      docName: 'Documento',
-      workbook: this.createWorkbook(),
-      sheetName: 'DATA',
-      sheetStyleFn: null
-    }
+  generateAndDownloadExcel(config: Partial<{
+                             items,
+                             columns,
+                             docName,
+                             workbook,
+                             sheetName,
+                             sheetStyleFn
+                           }> = {}
   ): void {
 
     const workbook = this.generateExcel(config);
-    this.downloadExcel(workbook, config.docName);
+    this.downloadExcel(workbook, config.getOrDefault('docName', 'Documento'));
 
   }
 
@@ -83,23 +79,17 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
       workbook,
       sheetName,
       sheetStyleFn
-    }> = {
-      items: this.hasValue() ? this.selectedValues() : this.itemsFiltered,
-      columns: this.displayColumns,
-      docName: 'Documento',
-      workbook: this.createWorkbook(),
-      sheetName: 'DATA',
-      sheetStyleFn: null
-    }
+    }> = {}
   ): ExcelProper.Workbook {
-    const {
-      items,
-      columns,
-      workbook,
-      sheetName,
-      sheetStyleFn
-    } = config;
-    this.addWorkSheet(workbook, sheetName);
+
+    const items = config.getOrDefault('items', (this.hasValue() ? this.selectedValues() : this.itemsFiltered));
+    const columns = config.getOrDefault('columns', this.displayColumns);
+    const workbook = config.getOrDefault('workbook', this.createWorkbook());
+    const sheetName = config.getOrDefault('sheetName', 'DATA');
+    const docName = config.getOrDefault('docName', 'Documento');
+    const sheetStyleFn = config.getOrDefault('sheetStyleFn', null);
+
+    this.addWorkSheet(workbook || this.createWorkbook(), sheetName || 'DATA');
 
     /** Se descartan las columnas marcadas como skipExcelExport: true */
     const columnToExport = columns.filter(c => !this.columnConfigMap[c].excelSkipExport);
@@ -155,7 +145,7 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
       anchor.download = fileN;
       anchor.click();
       // tslint:disable-next-line:only-arrow-functions
-      setTimeout(function() {
+      setTimeout(() => {
         window.URL.revokeObjectURL(url);
       }, 0);
     });
