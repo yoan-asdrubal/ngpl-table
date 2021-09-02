@@ -2,6 +2,8 @@ import './ngpl-interfaces/string.interface';
 import './ngpl-interfaces/object.interface';
 
 export * from './ngpl-table-decorators/base-table-dec';
+
+export * from './ngpl-table-base/ngpl-sheet';
 export * from './ngpl-table-base/ngpl-base.table';
 export * from './ngpl-table-base/ngpl-table-config.model';
 
