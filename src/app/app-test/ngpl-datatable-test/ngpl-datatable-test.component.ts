@@ -160,7 +160,7 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     });
   }
 
-  @Confirmable()
+  @Confirmable({actionText: 'ELIMINAR'})
   eliminar(items = this.selectedValues()): void {
     this.deselect(items);
     this.items = this.items.filter(i => {
@@ -168,5 +168,11 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
     });
   }
 
+  selectFileToImport(e: any): void {
+    this.readExcelData(e, 1, 6, 1, 1, this.readedDataExcel);
+  }
 
+  readedDataExcel(data: any[]): void {
+    console.log('readedDataExcel', data);
+  }
 }

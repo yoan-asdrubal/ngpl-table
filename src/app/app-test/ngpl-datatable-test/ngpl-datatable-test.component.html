@@ -83,16 +83,20 @@
 
         </ngpl-filter-menu>
         <ngpl-column-selector [columnConfig]="tableConfig" class="ml-3 "
-                              (viewColumn)="setDisplayColumns( $event)">
+                              (viewColumn)="displayColumns = $event">
 
         </ngpl-column-selector>
-        <button mat-mini-fab matTooltip="Eliminar" class="ml-3" color="" (click)="eliminar()">
+        <button mat-mini-fab matTooltip="Eliminar" class="ml-3" (click)="eliminar()">
           <mat-icon class="mat-18">delete</mat-icon>
         </button>
-        <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" color="" (click)="initData()">
+        <button mat-mini-fab matTooltip="Generar Datos" class="ml-3" (click)="initData()">
           <mat-icon class="mat-18">refresh</mat-icon>
         </button>
-        <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3" color=""
+        <button mat-mini-fab (click)="file.click()" class="ml-3">
+          <mat-icon class="mat-18">north</mat-icon>
+        </button>
+
+        <button matTooltip="Exportar Excel" mat-mini-fab class="ml-3 mr-3"
                 (click)="generateAndDownloadExcel()">
           <mat-icon class="mat-18">file_download</mat-icon>
         </button>
@@ -247,4 +251,6 @@
       <mat-paginator></mat-paginator>
     </div>
   </ngpl-datatable>
+  <input #file (change)="selectFileToImport($event)" type="file" accept=".xlsx" style="visibility: hidden">
+
 </div>
