@@ -4,8 +4,10 @@
 import {NgplTableColumnConfig, NgplTableConfigModel} from './ngpl-table-config.model';
 import {NgplSelection} from 'ngpl-common';
 import * as ExcelProper from 'exceljs';
-import {Cell, Worksheet} from 'exceljs';
+import {Cell, Row, Worksheet} from 'exceljs';
 import * as Excel from 'exceljs/dist/exceljs';
+import * as moment from 'moment';
+import {NgplSheetReaded} from './ngpl-sheet';
 
 export class NgplBaseTable<T extends any> extends NgplSelection<T> {
 
@@ -155,7 +157,7 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
       anchor.download = fileN;
       anchor.click();
       // tslint:disable-next-line:only-arrow-functions
-      setTimeout(function() {
+      setTimeout(() => {
         window.URL.revokeObjectURL(url);
       }, 0);
     });
@@ -231,5 +233,83 @@ export class NgplBaseTable<T extends any> extends NgplSelection<T> {
         });
     });
   }
+
+  /**
+   *
+   * @param e: Evento del input[file]
+   *
+   *
+   * @example de html <input #file (change)="selectFileToImport($event)" type="file" accept=".xlsx" style="visibility: hidden">
+   * @example de funcion para invocar la lectura
+   *
+   *
+   */
+  readExcelData(e: any, columsStart: number, columnEnd: number, headerRow = 1, startRow = 1, callBack: (data: NgplSheetReaded[]) => any): void {
+    const file = e.target.files[0];
+    if (!!file) {
+      const wb = new Excel.Workbook();
+      const reader = new FileReader();
+      const datos = [];
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => {
+        const buffer = reader.result;
+        wb.xlsx.load(buffer).then(workbook => {
+          workbook.eachSheet((sheet, id) => {
+            datos.push(this.readDataFromExcelSheet(sheet, columsStart, columnEnd, headerRow, startRow));
+          });
+          callBack(datos);
+        });
+      };
+    }
+  }
+
+  readDataFromExcelSheet(sheet: Excel.Worksheet, columsStart: number, columnEnd: number, headerRow = 1, startRow = 1): NgplSheetReaded {
+    const data: any[] = [];
+    let headers: Row = null;
+    const name = sheet.name;
+    sheet.eachRow((row: Row, rowIndex) => {
+      const increment = !!row[0] ? 0 : 1;
+      if (rowIndex === headerRow) {
+        headers = row;
+      }
+      if (rowIndex <= startRow) {
+        return;
+      }
+      data.push((row.values as any[]).slice(increment));
+
+    });
+    return {name, data};
+  }
+
+  leerFechaFromExcel(value: string | Date, formato = 'DD-MM-yyyy'): Date {
+    console.log(value, typeof value, value instanceof Date);
+    if (!value || value.toString().trim() === '') {
+      return null;
+    }
+
+
+    if (typeof value === 'string') {
+      return moment(value, formato).toDate();
+    }
+    const fecha = moment(value).add(1, 'd');
+    // console.log(value, moment(value).format('DD-MM-yyyy'), moment(value).add(1, 'd').format('DD-MM-yyyy'));
+    // const day = value.getDate(), month = value.getMonth(), year = value.getFullYear();
+    // let stringValue = `${month + 1}/${day + 1}/${year}`;
+    //
+    // if (day === 31 && month === 11) {
+    // 	stringValue = `1/1/${year + 1}`;
+    // }
+    //
+    // // console.log('value', value, day, month, year, stringValue);
+    //
+    // // const fecha = moment(stringValue, 'DD-MM-yyyy');
+    // const fecha = moment(stringValue, 'DD-MM-yyyy');
+    if (fecha.isValid()) {
+      return fecha.toDate();
+    }
+    return null;
+    // return moment(value).add(1, 'd').toDate();
+  }
+
 }
 
