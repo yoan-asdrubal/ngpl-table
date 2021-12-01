@@ -115,14 +115,17 @@ export class NgplDatatableTestComponent extends NgplBaseTable<any> implements On
   ngOnInit(): void {
     this.centroNegocio = [
       {
-        id: 1,
+        id: 0,
         descripcion: 'CNegocio 1'
       }, {
-        id: 2,
+        id: 1,
         descripcion: 'CNegocio 2'
       }, {
-        id: 3,
+        id: 2,
         descripcion: 'CNegocio 3'
+      }, {
+        id: null,
+        descripcion: 'CNegocio Todos'
       }
     ];
     this.opcionesEstado = [

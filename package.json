@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200 --base-href /",
+    "start": "ng serve --port 4200 --base-href / --open",
     "build": "ng build --prod --base-href /ngpl-table/",
     "test": "ng test",
     "lint": "ng lint",
@@ -40,7 +40,7 @@
     "ngpl-common": "^2.0.33",
     "ngpl-dialog": "^1.0.24",
     "ngpl-field": "^1.2.0",
-    "ngpl-filter": "^1.0.7",
+    "ngpl-filter": "^1.0.9",
     "ngpl-select": "^1.1.6",
     "ngpl-select-multiple": "^1.1.10",
     "ngx-lottie": "^7.0.3",
