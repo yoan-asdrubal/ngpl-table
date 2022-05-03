@@ -11,6 +11,8 @@
   display: flex;
   flex-direction: column;
   min-width: 200px;
+  overflow-y: auto;
+  margin-bottom: 50px;
 
   .filter-header {
     color: #2a3f6e;
